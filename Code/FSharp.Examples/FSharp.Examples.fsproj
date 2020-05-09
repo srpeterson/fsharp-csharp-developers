@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Scripts\Scratchpad.fsx" />
+    <None Include="Scripts\Interactive.fsx" />
+    <None Include="Scripts\HelloWorld.fsx" />
+    <None Include="Scripts\DataStructures.fsx" />
+    <None Include="Scripts\Composition.fsx" />
+    <None Include="Scripts\OptionType.fsx" />
+    <None Include="Scripts\ResultType.fsx" />
+    <None Include="Scripts\UnitsOfMeasure.fsx" />
+    <None Include="Scripts\AlgebraicTypes.fsx" />
+    <Compile Include="Interactive.fs" />
+    <Compile Include="HelloWorld.fs" />
+    <Compile Include="DataStructures.fs" />
+    <Compile Include="Composition.fs" />
+    <Compile Include="OptionType.fs" />
+    <Compile Include="ResultType.fs" />
+    <Compile Include="UnitsOfMeasure.fs" />
+    <Compile Include="AlgebraicTypes.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.1" />
+  </ItemGroup>
+
+</Project>
