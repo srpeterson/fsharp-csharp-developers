@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinChallenge.Api.CSharp", 
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "CoinChallenge.Api.FSharp", "CoinChallenge.Api.FSharp\CoinChallenge.Api.FSharp.fsproj", "{B437D019-B6C4-45C8-8F06-385D9F082D51}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.Examples", "FSharp.Examples\FSharp.Examples.fsproj", "{635D254A-2868-41C6-BB1F-C960CCB040A6}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharp.Examples", "FSharp.Examples\FSharp.Examples.fsproj", "{635D254A-2868-41C6-BB1F-C960CCB040A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.Examples", "CSharp.Examples\CSharp.Examples.csproj", "{BBE239B7-9285-4C41-9EE5-6B0774B474A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp.Examples", "CSharp.Examples\CSharp.Examples.csproj", "{BBE239B7-9285-4C41-9EE5-6B0774B474A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
