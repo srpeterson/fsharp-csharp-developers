@@ -6,50 +6,41 @@ module ResultType =
     // The Error is NOT an Exception!! It is a way of saying:
     // "The result of what I was doing didn't work out so well"
     
-    //very simple example
-    let lessThanFive x = 
-        if x < 5 then Ok (sprintf "%d is less than 5" x) 
-        else Error (sprintf "%d is not less than 5" x)
-    
     // We can "chain" any function that returns
     // a Result type  to another to achieve what is called
     // Railway Oriented Programming (ROP).
     // Basically, if one function in the chain 
     // returns an Error, the  rest of the functions
-    // in the chain are skipped
+    // in the chain are skipped.
     // This is very useful in situations where,
-    // for example, you want to validate something.
+    // for example, you want to validate something for more than one condition.
     
     // Suppose, for example, we would like to check
-    // if a number is even and is between 1 and 100
-    // and we want to specify which validation rule
+    // if a number is a multiple of 3 and multiple of 5
+    // and is an even number.
+    // We want to specify which validation rule
     // it failed on
     
-    // Suppose, for example, we would like to check
-    // if a number is even and is between 1 and 100
-    // and we want to specify which validation rule
-    // it failed on
+    let isEven number = 
+        if number % 2 = 0 then Ok number 
+        else Error (sprintf "Invalid: %d is an odd number" number)
     
-    let greaterThanZero intToValidate = 
-        if intToValidate > 0 then Ok intToValidate
-        else Error (sprintf "%d must be greater than 1" intToValidate)
+    let multipleOfThree number = 
+        if number % 3 = 0 then Ok number 
+        else Error (sprintf "Invalid: %d is not a multiple of 3" number)
     
-    let lessEqualHundred intToValidate = 
-        if intToValidate <= 100 then Ok intToValidate 
-        else Error (sprintf "%d must be less than or equal to 100" intToValidate)
+    let multipleOfFive number = 
+        if number % 5 = 0 then Ok number 
+        else Error (sprintf "Invalid: %d is not a multiple of 5" number)
     
-    let isEven intToValidate = 
-        if intToValidate % 2 = 0 then Ok intToValidate 
-        else Error (sprintf "%d is an odd number" intToValidate)
-    
-    let validationResult intToValidate = 
-        Ok intToValidate
-        |> Result.bind greaterThanZero
-        |> Result.bind lessEqualHundred
+    let validationResult number = 
+        Ok number
+        |> Result.bind multipleOfThree
+        |> Result.bind multipleOfFive
         |> Result.bind isEven
     
-    let validate intToValidate =
-        let result = validationResult intToValidate
+    let validate number =
+        let result = validationResult number
         match result with
         | Ok i -> sprintf "%d is a valid number!" i
         | Error message -> message

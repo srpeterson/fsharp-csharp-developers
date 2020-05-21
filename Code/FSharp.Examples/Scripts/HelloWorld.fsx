@@ -1,13 +1,14 @@
-﻿let (greeting: string) = "Hello World!"
+﻿let greeting = "Hello World!"
 
-//compiler knows that 'ten' is int, so you don't need to write it
 let ten = 10; 
 
+let addTwoNumbers number1 number2 = number1 + number2
+
 //list
-let (firstnames: string list) = ["Steve"; "Bob"; "Mary"]
+let firstnames = ["Steve"; "Bob"; "Mary"]
 
 //array
-let (lastNames: string array) = [| "Jones"; "Smith"; "Adams" |]
+let lastNames = [| "Jones"; "Smith"; "Adams" |]
 
 //F# dictionary way
 let mapNames = Map.ofList ["key1", "Bob"; "key2", "Bob"] 
@@ -16,7 +17,7 @@ let mapNames = Map.ofList ["key1", "Bob"; "key2", "Bob"]
 let setNames = set ["Steve"; "Bob"; "Mary"; "Bob"]
 
 //tuple
-let (myTuple: int * string) = (5, "five") 
+let myTuple = (5, "five") 
     
 //simple mult line function
 let getMyTupleFirst =
@@ -24,8 +25,8 @@ let getMyTupleFirst =
     first //notice no 'return' like in C#
 
 //option - how F# deals with 'null' in C#
-let (eleven: int option) = Some 11
-let (twelve: int option) = None
+let eleven = Some 11
+let twelve = None
 
 //if conditional (in F# we use if conditional only if 2 possible outcomes)
 let isLessThanTen x  = if x < 10 then "Less than ten" else "Greater than ten"
@@ -71,4 +72,5 @@ let builtIn (intToDoSOmethingWith: (int -> bool)) x = intToDoSOmethingWith x
 //Better: Declare iterface as a type for self documenting code
 
 type DoSomethingWithInt = (int -> bool)
+
 let withType (parm: DoSomethingWithInt) x = parm x

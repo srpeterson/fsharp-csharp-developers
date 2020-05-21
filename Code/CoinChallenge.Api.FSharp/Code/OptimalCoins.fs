@@ -1,12 +1,13 @@
 ﻿namespace CoinChallenge.Api.FSharp
+
 module OptimalCoins =
 
     module AmountValidationResult =
 
         [<Struct>]
-        type AmountValidationResult<'T,'TResult> =
+        type Result<'T,'TFail> =
             | ValidAmount of Valid:'T 
-            | InValidAmount of InValid:'TResult
+            | InValidAmount of InValid:'TFail
 
         let bind binder result = 
             match result with ValidAmount x -> binder x | InValidAmount e -> InValidAmount e 
@@ -86,11 +87,11 @@ module OptimalCoins =
             |> List.fold calculateCoin (amount, intialCoins)
             |> snd
 
-    module Data =
+    module Result =
         open CoinChallenge.Api.FSharp.DomainTypes
 
         //use primitive types so serializes correctly
-        type OptimalCoinsData = 
+        type OptimalCoinsResult = 
             {
                 SilverDollars: int
                 HalfDollars: int 
@@ -100,7 +101,7 @@ module OptimalCoins =
                 Pennies: int 
             }
        
-        let setOptimalCoinsData (coins: Coins) = 
+        let setOptimalCoins (coins: Coins) = 
             {
                 SilverDollars = match coins.SilverDollars with SilverDollars i -> i
                 HalfDollars   = match coins.HalfDollars   with HalfDollars i -> i
@@ -115,11 +116,11 @@ module OptimalCoins =
         open AmountValidationResult
         open ValidateAmount
         open Calculate
-        open Data
+        open Result
 
         let calculateCoins amount = 
 
-            let okWorkflow = calculate >> setOptimalCoinsData >> okResponse "Calculate optimal coins successful"
+            let okWorkflow = calculate >> setOptimalCoins >> okResponse "Calculate optimal coins successful"
             let errorWorkflow = invalidReason >> badRequestResponse
 
             let response =

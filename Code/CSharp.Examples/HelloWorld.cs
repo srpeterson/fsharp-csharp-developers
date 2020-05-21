@@ -61,6 +61,7 @@ namespace CSharp.Examples
         private string TellMeABoutYourDog(int age) => TellMeABoutYourPet("dog", age);
 
         private Func<string, int,string> PetFunc = (animal, age) => $"My pet is a {animal} and is {age} years old!";
+
         private Func<string, int, string> PersonFunc = (name, weight) => $"My name is {name} and I weigh {weight} pounds!";
 
         private string TellMe(string parm1, int parm2, Func<string, int, string> func) => func(parm1, parm2);
