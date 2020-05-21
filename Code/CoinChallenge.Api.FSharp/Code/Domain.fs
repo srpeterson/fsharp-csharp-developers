@@ -40,16 +40,4 @@ module DomainTypes =
             Pennies: Pennies 
         }
 
-module ValidationResult =
 
-    [<Struct>]
-    type AmountValidationResult<'T,'TResult> =
-        | Valid of Amount:'T 
-        | InValid of InValidAmount:'TResult
-
-    let bind binder result = 
-        match result with Valid x -> binder x | InValid e -> InValid e 
-
-    let map mapping result = match result with Valid x -> Valid (mapping x) | InValid e -> InValid e 
-
-    let mapError mapping result = match result with Valid x -> Valid x | InValid e -> InValid (mapping e) 

@@ -3,7 +3,7 @@
 open Microsoft.AspNetCore.Mvc
 open Microsoft.AspNetCore.Http
 open CoinChallenge.Api.FSharp.Responses
-open CoinChallenge.Api.FSharp.OptimalCoins.WorkFlow
+open CoinChallenge.Api.FSharp.OptimalCoins.CalculateCoinsWorkflow
 
 [<ApiController>]
 [<Produces("application/json")>]
@@ -41,6 +41,6 @@ type OptimalCoinsController () =
     [<ProducesResponseType(typeof<StandardResponse>, StatusCodes.Status400BadRequest)>]
     member _.CalculateOptimalCoins (amount: decimal) = 
 
-        let response = calculateCoinsWorkFlow amount
+        let response = calculateCoins amount
         ActionResult<StandardResponse>( base.StatusCode (response.StatusCode, response) )
      
