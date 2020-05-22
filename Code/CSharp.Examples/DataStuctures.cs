@@ -2,16 +2,16 @@
 
 namespace CSharp.Examples
 {
-    public class Customer //good 'ol DTO or POCO
+    public class Person //good 'ol DTO or POCO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
        
     }
 
-    public class ImmutableCustomer
+    public class ImmutablePerson
     {
-        public ImmutableCustomer (string firstName, string lastName)
+        public ImmutablePerson (string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -22,7 +22,7 @@ namespace CSharp.Examples
        
     }
 
-    public class EquatableCustomer : IEquatable<EquatableCustomer>
+    public class EquatablePerson : IEquatable<EquatablePerson>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -31,10 +31,10 @@ namespace CSharp.Examples
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals(obj as EquatableCustomer);
+            return obj.GetType() == GetType() && Equals(obj as EquatablePerson);
         }
 
-        public bool Equals(EquatableCustomer other)
+        public bool Equals(EquatablePerson other)
         {
             if (other == null) return false;
 
