@@ -38,11 +38,9 @@ type Disk = DiskType * DiskSpace //the '*' means "AND". Can't do this in C#!!!
 type Computer = { Brand: Brand; Os: OS; Memory: RAM; Disk: Disk; Style: Style }
 
 type CurrentStock = InStock of Computer list | OnlyOneLeft of Computer | OutofStock of string
-
-type Computers = Computer list
 type ComputerPredicate = Computer -> bool
 
-let getStock (predicate: ComputerPredicate) (inventory: Computers) : CurrentStock = 
+let getStock predicate inventory : CurrentStock = 
     let currentStock = inventory |> List.filter (predicate)
     match currentStock with
     | currentStock when currentStock.IsEmpty -> OutofStock "The computers you searched for are out of stock"
@@ -50,13 +48,13 @@ let getStock (predicate: ComputerPredicate) (inventory: Computers) : CurrentStoc
     | _ -> InStock currentStock
 
 //have some fun!
-let computers: Computers = 
+let computers = 
     [
         { Brand= Acer;   Os= Win10Home; Memory= Gb8;  Disk= (HDD, GigaByte 750); Style = Desktop }
         { Brand= Acer;   Os= Win10Pro;  Memory= Gb16; Disk= (SSD, GigaByte 500); Style = Laptop }
         { Brand= Acer;   Os= Win10Pro;  Memory= Gb16; Disk= (HDD, TeraByte 1);   Style = Laptop }
         { Brand= Lenovo; Os= Win10Pro;  Memory= Gb8;  Disk= (SSD, GigaByte 750); Style = Laptop }
-        { Brand= Lenovo; Os= Win10Home; Memory= Gb16; Disk= (SSD, GigaByte 250); Style = Laptop }
+        { Brand= Lenovo; Os= Win10Home; Memory= Gb16; Disk= (SSD, TeraByte 1); Style = Laptop }
         { Brand= Hp;     Os= Win10Pro;  Memory= Gb32; Disk= (HDD, TeraByte 1);   Style = Desktop }
         { Brand= Hp;     Os= Win10Home; Memory= Gb8;  Disk= (SSD, GigaByte 500); Style = Laptop }
         { Brand= Hp;     Os= Win10Pro;  Memory= Gb16; Disk= (SSD, GigaByte 750); Style = Laptop }
@@ -65,11 +63,11 @@ let computers: Computers =
 
 let desktops: ComputerPredicate = fun a -> a.Style = Desktop
 let dellLaptops: ComputerPredicate = fun a -> a.Brand = Dell && a.Style = Laptop
-let ssds: ComputerPredicate = fun { Disk= (ssd, _) } -> ssd = SSD
+let teraByteSsds: ComputerPredicate = fun { Disk= (ssd, gb) } -> ssd = SSD && gb = TeraByte 1
 
 let desktopsInStock = computers |> getStock desktops
 let dellLaptopsInStock = computers |> getStock dellLaptops
-let ssdsInStock = computers |> getStock ssds
+let ssdsInStock = computers |> getStock teraByteSsds
 
 
 //type Disk = HDD125 | HDD250 | HDD500 | HDD750 | HDD1000 | SSD125 | SSD250 | SSD750 | SSD1000 | HDD2000 //Do we add? Or wait until later
