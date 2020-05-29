@@ -56,7 +56,7 @@ module OptimalCoins =
                 Pennies= Pennies 0 
             }
     
-        let coinValue coin = 
+        let getCoinValue coin = 
             match coin with
             | SilverDollar -> 1.m
             | HalfDollar   -> 0.50m
@@ -66,7 +66,7 @@ module OptimalCoins =
             | Penny        -> 0.01m
 
         let calculateCoin (amount, coins) coin =
-            let coinValue = coinValue coin
+            let coinValue = getCoinValue coin
             let numberOfCoins  = (amount / coinValue) |> int
             let remainingAmount  = amount % coinValue
         

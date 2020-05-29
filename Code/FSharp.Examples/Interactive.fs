@@ -2,7 +2,7 @@
 
 module Interactive =
 
-    let getLessThanFour = 
-        [0..5] |> List.filter (fun i -> i < 4)
+    let getEvenNumbers = 
+        [1..30] |> List.filter (fun i -> i % 2 = 0)
 
     

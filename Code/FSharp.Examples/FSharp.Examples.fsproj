@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Scripts\Scratchpad.fsx" />
     <None Include="Scripts\Interactive.fsx" />
     <None Include="Scripts\HelloWorld.fsx" />
     <None Include="Scripts\DataStructures.fsx" />
@@ -25,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="4.7.1" />
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
   </ItemGroup>
 
 </Project>

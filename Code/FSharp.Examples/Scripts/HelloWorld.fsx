@@ -29,7 +29,8 @@ let eleven = Some 11
 let twelve = None
 
 //if conditional (in F# we use if conditional only if 2 possible outcomes)
-let isLessThanTen x  = if x < 10 then "Less than ten" else "Greater than ten"
+let isLessThanTen x  = 
+    if x < 10 then "Less than ten" else "Greater than ten"
 
 //match: C# 8 switch expression
 let switchOnInt x =
@@ -40,6 +41,7 @@ let switchOnInt x =
 
 //commonly used F# collections (by no means all!!!!!!!)
 
+//list
 let oneToFive = [1..5] // [1; 2; 3; 4; 5]
 
 //iter : C# LINQ 'ForEach'
@@ -65,12 +67,8 @@ let tellMeDog = tellMeABoutYourPet "dog"
 //function that uses a 'partial application' function
 let tellMeAboutYourDog age = tellMeDog age
 
-//'Interface' in F#. Notice the 'parm". 
-//'builtIn' is an example of a higher order function.
-let builtIn (intToDoSOmethingWith: (int -> bool)) x = intToDoSOmethingWith x
-
-//Better: Declare iterface as a type for self documenting code
-
+//Interface typein F#. Notice the 'parm". 
 type DoSomethingWithInt = (int -> bool)
 
+//higher order function (accepts a function as a parameter or refurns a function)
 let withType (parm: DoSomethingWithInt) x = parm x
