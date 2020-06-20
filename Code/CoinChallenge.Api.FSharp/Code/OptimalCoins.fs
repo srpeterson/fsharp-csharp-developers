@@ -2,8 +2,8 @@
 
 module OptimalCoins =
 
-    module AmountValidationResult =
-
+    module Validation =
+        
         [<Struct>]
         type Result<'T,'TFail> =
             | ValidAmount of Valid:'T 
@@ -11,15 +11,6 @@ module OptimalCoins =
 
         let bind binder result = 
             match result with ValidAmount x -> binder x | InValidAmount e -> InValidAmount e 
-
-        let map mapping result = 
-            match result with ValidAmount x -> ValidAmount (mapping x) | InValidAmount e -> InValidAmount e 
-
-        let mapError mapping result = 
-            match result with ValidAmount x -> ValidAmount x | InValidAmount e -> InValidAmount (mapping e) 
-
-    module ValidateAmount =
-        open AmountValidationResult
 
         type CalculateCoinsFailure = NegativeAmountFailure | ExceedsMaxIntegerFailure
              
@@ -36,8 +27,8 @@ module OptimalCoins =
             let amountIsLessIntMax amount = amount |> validate decimalLessThanIntMax ExceedsMaxIntegerFailure
         
             ValidAmount amount 
-                |> AmountValidationResult.bind amountIsNotNegative 
-                |> AmountValidationResult.bind amountIsLessIntMax
+                |> bind amountIsNotNegative 
+                |> bind amountIsLessIntMax
         
         let invalidReason = function
             | NegativeAmountFailure -> "Amount can not be less than zero"
@@ -113,8 +104,7 @@ module OptimalCoins =
 
     module CalculateCoinsWorkflow = 
         open CoinChallenge.Api.FSharp.Responses
-        open AmountValidationResult
-        open ValidateAmount
+        open Validation
         open Calculate
         open Result
 
@@ -123,13 +113,8 @@ module OptimalCoins =
             let okWorkflow = calculate >> setOptimalCoins >> okResponse "Calculate optimal coins successful"
             let errorWorkflow = invalidReason >> badRequestResponse
 
-            let response =
-                amount
-                |> validateAmount
-                |> AmountValidationResult.map okWorkflow
-                |> AmountValidationResult.mapError errorWorkflow
+            match validateAmount amount with
+            | ValidAmount amount -> okWorkflow  amount
+            | InValidAmount failure -> errorWorkflow failure
 
-            match response with
-            | ValidAmount okResponse -> okResponse 
-            | InValidAmount badRequestResponse -> badRequestResponse
 
