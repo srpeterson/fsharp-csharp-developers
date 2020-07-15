@@ -3,7 +3,7 @@
 open Microsoft.AspNetCore.Mvc
 open Microsoft.AspNetCore.Http
 open CoinChallenge.Api.FSharp.Responses
-open CoinChallenge.Api.FSharp.OptimalCoins.CalculateCoinsWorkflow
+open CoinChallenge.Api.FSharp.OptimalCoins.CalculateCoins
 
 [<ApiController>]
 [<Produces("application/json")>]

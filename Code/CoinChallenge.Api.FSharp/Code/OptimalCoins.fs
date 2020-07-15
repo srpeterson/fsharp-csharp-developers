@@ -73,44 +73,30 @@ module OptimalCoins =
             remainingAmount, coins
         
         let calculate amount = 
-            let coins = [ SilverDollar; HalfDollar; Quarter; Dime; Nickel; Penny ]
-            coins
+            [ SilverDollar; HalfDollar; Quarter; Dime; Nickel; Penny ]
             |> List.fold calculateCoin (amount, intialCoins)
             |> snd
 
-    module Result =
+    module CalculateCoins = 
+        open CoinChallenge.Api.FSharp.Responses
         open CoinChallenge.Api.FSharp.DomainTypes
+        open Validation
+        open Calculate
 
-        //use primitive types so serializes correctly
-        type OptimalCoinsResult = 
-            {
-                SilverDollars: int
-                HalfDollars: int 
-                Quarters: int 
-                Dimes: int
-                Nickels: int 
-                Pennies: int 
-            }
-       
-        let setOptimalCoins (coins: Coins) = 
-            {
+        //unwrap to primitive types so serializes correctly
+        let setData (coins: Coins) = 
+            {|
                 SilverDollars = match coins.SilverDollars with SilverDollars i -> i
                 HalfDollars   = match coins.HalfDollars   with HalfDollars i -> i
                 Quarters      = match coins.Quarters      with Quarters i -> i
                 Dimes         = match coins.Dimes         with Dimes i -> i
                 Nickels       = match coins.Nickels       with Nickels i -> i
                 Pennies       = match coins.Pennies       with Pennies i -> i
-            }
-
-    module CalculateCoinsWorkflow = 
-        open CoinChallenge.Api.FSharp.Responses
-        open Validation
-        open Calculate
-        open Result
+            |}
 
         let calculateCoins amount = 
 
-            let okWorkflow = calculate >> setOptimalCoins >> okResponse "Calculate optimal coins successful"
+            let okWorkflow = calculate >> setData >> okResponse "Calculate optimal coins successful"
             let errorWorkflow = invalidReason >> badRequestResponse
 
             match validateAmount amount with
