@@ -4,7 +4,7 @@ module ResultType =
 
     // The F# ResultType returns a choice type of Ok or Error
     // The Error is NOT an Exception!! It is a way of saying:
-    // "The result of what I was doing didn't work out so well"
+    // "The result of what I was doing didn't give me what I expected"
     
     // We can "chain" any function that returns
     // a Result type  to another to achieve what is called
@@ -23,7 +23,7 @@ module ResultType =
     
     let isEven number = 
         if number % 2 = 0 then Ok number 
-        else Error (sprintf "Invalid: %d is an odd number" number)
+        else Error (sprintf "Invalid: %d is not an even number" number)
     
     let multipleOfThree number = 
         if number % 3 = 0 then Ok number 
@@ -33,10 +33,12 @@ module ResultType =
         if number % 5 = 0 then Ok number 
         else Error (sprintf "Invalid: %d is not a multiple of 5" number)
     
+    // ROP "chaining" if one rule fails, then the rest of the chain
+    // is bypassed
     let validationResult number = 
         Ok number
-        |> Result.bind multipleOfThree
-        |> Result.bind multipleOfFive
+        |> Result.bind multipleOfThree //if passes, then will evaluate 'multipleOfFive'
+        |> Result.bind multipleOfFive //if passes, then will evaluate 'isEven'
         |> Result.bind isEven
     
     let validate number =

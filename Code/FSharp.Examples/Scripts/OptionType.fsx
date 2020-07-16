@@ -2,7 +2,8 @@
 // But sometimes you have to deal with the concept that the
 // "something" might not have a value. 
 // F# solves the problem with the built in the "Option" type
-// Basically this means that you might have Some of "something"
+// Basically, this means that you might have Some of "something"
+// or "None" of that "something"
 
 //F# Option type - keyword 'option'
 let (name: string option) = Some "Bob" // = "Bob" won't compile!
@@ -22,6 +23,6 @@ let getName' name = name |> Option.defaultValue "No name assigned!"
 let someIntegers = [ Some 1; None; None; Some 4 ]
 
 let justSomeInts = someIntegers |> List.filter(Option.isSome) // [Some 1; Some 4]
-let justTheInts = someIntegers |> List.choose(id) // [1; 4]
+let justTheInts = someIntegers |> List.choose(id) // [1; 4] - only the values of the collection members that are "Some"
 
 

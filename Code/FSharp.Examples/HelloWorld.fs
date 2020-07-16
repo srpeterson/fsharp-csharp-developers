@@ -69,14 +69,10 @@ module HelloWorld =
     //function that uses a 'partial application' function
     let tellMeAboutYourDog age = tellMeDog age
     
-    //'Interface' in F#. Notice the 'parm". 
-    //'builtIn' is an example of a higher order function.
-    let builtIn (intToDoSOmethingWith: (int -> bool)) x = intToDoSOmethingWith x
-    
-    //Better: Declare iterface as a type for self documenting code
-    
+    //Interface type in F#. This defines any function that accepts an int and returns a bool. 
     type DoSomethingWithInt = (int -> bool)
     
+    //higher order function (accepts a function as a parameter or refurns a function)
     let withType (parm: DoSomethingWithInt) x = parm x
 
     

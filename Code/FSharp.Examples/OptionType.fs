@@ -6,7 +6,8 @@ module OptionType =
   // But sometimes you have to deal with the concept that the
   // "something" might not have a value. 
   // F# solves the problem with the built in type called the "Option'
-  // Basically this means that you might have Some of "something"
+  // Basically, this means that you might have Some of "something"
+  // or "None" of that "something"
   
   //F# Option type - keyword 'option'
   let (name: string option) = Some "Bob" // = "Bob" won't compile!

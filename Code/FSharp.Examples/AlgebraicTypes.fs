@@ -4,7 +4,7 @@ module AlgabraicTypes =
 
     // The F# Algabraic type system is basically a fancy name
     // for being able to combine types in a "AND' or "OR" way.
-    // This gives us a pweful tool to model our domain
+    // This gives us a powerful tool to model our domain
     // in a very self documenting way
     
     // Use case: Your client owns a computer store. He would like his sales people 
