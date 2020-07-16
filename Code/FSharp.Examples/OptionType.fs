@@ -25,7 +25,7 @@ module OptionType =
   //optional lists
   let someIntegers = [ Some 1; None; None; Some 4 ]
   
-  let justSomeAnimals = someIntegers |> List.filter(Option.isSome) // [Some 1; Some 4]
+  let justSomeInts = someIntegers |> List.filter(Option.isSome) // [Some 1; Some 4]
   let justTheInts = someIntegers |> List.choose(id) // [1; 4]
 
 

@@ -67,7 +67,7 @@ let tellMeDog = tellMeABoutYourPet "dog"
 //function that uses a 'partial application' function
 let tellMeAboutYourDog age = tellMeDog age
 
-//Interface typein F#. Notice the 'parm". 
+//Interface type in F#. Notice the 'parm". 
 type DoSomethingWithInt = (int -> bool)
 
 //higher order function (accepts a function as a parameter or refurns a function)
