@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,10 +21,6 @@
     <Compile Include="ResultType.fs" />
     <Compile Include="UnitsOfMeasure.fs" />
     <Compile Include="AlgebraicTypes.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="4.7.2" />
   </ItemGroup>
 
 </Project>
