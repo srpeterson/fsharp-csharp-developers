@@ -11,9 +11,9 @@ module Responses =
     type StandardResponse = { Status: string; StatusCode: int; Message: string; Result: Object }
     
     let okResponse message result : StandardResponse = 
-            { Status= "Ok"; StatusCode= 200; Message= message; Result= result }
+            { Status= "Ok"; StatusCode = 200; Message = message; Result = result }
     
     let badRequestResponse message : StandardResponse = 
-        { Status= "Bad Request"; StatusCode= 400; Message= message; Result= null }
+        { Status = "Bad Request"; StatusCode = 400; Message = message; Result= null }
 
 
