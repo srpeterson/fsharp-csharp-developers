@@ -6,7 +6,7 @@
 // or "None" of that "something"
 
 //F# Option type - keyword 'option'
-let (name: string option) = Some "Bob" // = "Bob" won't compile!
+let (name: string option) = Some "Bob" // = "Bob" by itself won't compile!
 //or
 let (name2: string option) = None
 

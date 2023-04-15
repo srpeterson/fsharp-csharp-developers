@@ -28,3 +28,6 @@ let answerToTenComposed = whatIsTheAnswerComposed 10
 // The advantage to compostion is that because it is a function
 // we can supply it as the predicate (or parameter to a higher order function)
 let tellMeList = [1..10] |> List.map (whatIsTheAnswerComposed)
+
+// compared to pipe way
+let tellMeList2 = [1..10] |> List.map (fun x -> whatIsTheAnswerPiped x)

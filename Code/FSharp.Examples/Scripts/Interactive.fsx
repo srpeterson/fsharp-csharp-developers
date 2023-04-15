@@ -1,6 +1,6 @@
 ﻿#load "../Interactive.fs"
 open Fsharp.Examples.Interactive
 
-let evenNumbersTimeTwo = 
+let evenNumbersTimesTwo = 
     getEvenNumbers 
     |> List.map(fun num -> num * 2) 
