@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Data\Abs-Return-Daily-Returns.csv" />
+    <None Include="scripts\TypeProvider.fsx" />
     <None Include="Scripts\Interactive.fsx" />
     <None Include="Scripts\HelloWorld.fsx" />
     <None Include="Scripts\DataStructures.fsx" />
@@ -22,5 +24,5 @@
     <Compile Include="UnitsOfMeasure.fs" />
     <Compile Include="AlgebraicTypes.fs" />
   </ItemGroup>
-
+	
 </Project>
