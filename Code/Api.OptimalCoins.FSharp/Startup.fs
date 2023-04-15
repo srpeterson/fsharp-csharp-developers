@@ -11,9 +11,10 @@ open Microsoft.Extensions.Hosting
 open Microsoft.OpenApi.Models
 
 type Startup private () =
-    new (configuration: IConfiguration) as me = //prefer 'me' to 'this' to distance from C# 'this'
+
+    new (configuration: IConfiguration) as this =
         Startup() then
-        me.Configuration <- configuration
+        this.Configuration <- configuration
 
     // This method gets called by the runtime. Use this method to add services to the container.
     member _.ConfigureServices (services: IServiceCollection) =
