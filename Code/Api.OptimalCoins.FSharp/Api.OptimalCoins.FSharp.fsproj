@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ProjectUISubcaption>.NET 6 with Swagger</ProjectUISubcaption>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningsAsErrors>3239</WarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Scripts\Scratchpad.fsx" />
+    <Compile Include="Code\Validation.fs" />
+    <Compile Include="Code\CalulateCoins.fs" />
+    <Compile Include="Controllers\Http.fs" />
+    <Compile Include="Controllers\CoinController.fs" />
+    <Compile Include="Startup.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+	
+</Project>

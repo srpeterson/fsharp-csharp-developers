@@ -7,6 +7,10 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSharp.Examples", "FSharp.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp.Examples", "CSharp.Examples\CSharp.Examples.csproj", "{BBE239B7-9285-4C41-9EE5-6B0774B474A8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.OptimalCoins.CSharp", "Api.OptimalCoins.CSharp\Api.OptimalCoins.CSharp.csproj", "{7512F84C-C611-4D43-A9AF-8C60515254BC}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Api.OptimalCoins.FSharp", "Api.OptimalCoins.FSharp\Api.OptimalCoins.FSharp.fsproj", "{3E612812-0869-4893-8CF3-AC6CF5B0111C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{BBE239B7-9285-4C41-9EE5-6B0774B474A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBE239B7-9285-4C41-9EE5-6B0774B474A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBE239B7-9285-4C41-9EE5-6B0774B474A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7512F84C-C611-4D43-A9AF-8C60515254BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7512F84C-C611-4D43-A9AF-8C60515254BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7512F84C-C611-4D43-A9AF-8C60515254BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7512F84C-C611-4D43-A9AF-8C60515254BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E612812-0869-4893-8CF3-AC6CF5B0111C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E612812-0869-4893-8CF3-AC6CF5B0111C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E612812-0869-4893-8CF3-AC6CF5B0111C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E612812-0869-4893-8CF3-AC6CF5B0111C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
