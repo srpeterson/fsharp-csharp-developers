@@ -1,4 +1,4 @@
-namespace Challenge.Api.FSharp
+namespace Api.OptimalCoins.FSharp
 
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Hosting

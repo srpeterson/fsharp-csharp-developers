@@ -1,6 +1,6 @@
-﻿using Challenge.Api.CSharp.Domain;
+﻿using Api.OptimalCoins.Sharp.Domain;
 
-namespace Challenge.Api.CSharp.Services;
+namespace Api.OptimalCoins.Sharp.Services;
 
 public class CalculatedCoins
 {

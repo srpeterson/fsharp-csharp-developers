@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Challenge.Api.CSharp.Domain;
+using Api.OptimalCoins.Sharp.Domain;
 
-namespace Challenge.Api.CSharp.Controllers;
+namespace Api.OptimalCoins.Sharp.Controllers;
 
 public class ControllerBase : Microsoft.AspNetCore.Mvc.ControllerBase
 {

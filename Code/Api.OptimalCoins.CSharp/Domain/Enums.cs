@@ -1,4 +1,4 @@
-﻿namespace Challenge.Api.CSharp.Domain;
+﻿namespace Api.OptimalCoins.Sharp.Domain;
 
 public enum ValidateCoinsResult { Ok, IsNegative, ExceedsMaxInt }
 

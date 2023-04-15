@@ -1,4 +1,4 @@
-﻿namespace Challenge.Api.FSharp
+﻿namespace Api.OptimalCoins.FSharp
 
 module Validation = 
 

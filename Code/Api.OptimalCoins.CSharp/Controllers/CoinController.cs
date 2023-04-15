@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Challenge.Api.CSharp.Domain;
-using Challenge.Api.CSharp.Services;
+using Api.OptimalCoins.Sharp.Domain;
+using Api.OptimalCoins.Sharp.Services;
 
-namespace Challenge.Api.CSharp.Controllers;
+namespace Api.OptimalCoins.Sharp.Controllers;
 
 [ApiController]
 [Produces("application/json")]

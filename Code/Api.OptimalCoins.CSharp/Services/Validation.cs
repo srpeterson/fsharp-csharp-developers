@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Challenge.Api.CSharp.Services;
+namespace Api.OptimalCoins.Sharp.Services;
 
 public static class Validation
 {

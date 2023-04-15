@@ -1,4 +1,4 @@
-﻿namespace Challenge.Api.FSharp.Http
+﻿namespace Api.OptimalCoins.FSharp.Http
 
 // This file contains the stuff that deals with input/output at the controller level
 module Requests =

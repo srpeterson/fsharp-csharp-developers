@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Challenge.Api.CSharp;
+namespace Api.OptimalCoins.Sharp;
 
 public class Program
 {

@@ -7,9 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Challenge.Api.CSharp.Services;
+using Api.OptimalCoins.Sharp.Services;
 
-namespace Challenge.Api.CSharp; 
+namespace Api.OptimalCoins.Sharp; 
 
 public class Startup
 {

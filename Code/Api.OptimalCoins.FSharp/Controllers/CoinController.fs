@@ -1,9 +1,9 @@
-﻿namespace Challenge.Api.FSharp.Controllers
+﻿namespace Api.OptimalCoins.FSharp.Controllers
 
 open Microsoft.AspNetCore.Mvc
 open Microsoft.AspNetCore.Http
-open Challenge.Api.FSharp.CalculateCoins
-open Challenge.Api.FSharp.Http.Responses
+open Api.OptimalCoins.FSharp.CalculateCoins
+open Api.OptimalCoins.FSharp.Http.Responses
 
 [<ApiController>]
 [<Produces("application/json")>]
