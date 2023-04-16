@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<Compile Include="Benchmarks\RequestModels.fs" />
+	<Compile Include="Benchmarks\CreateBenchmark.fs" />
+	<Compile Include="Interactive.fs" />
+	<Compile Include="HelloWorld.fs" />
+	<Compile Include="DataStructures.fs" />
+	<Compile Include="Composition.fs" />
+	<Compile Include="OptionType.fs" />
+	<Compile Include="ResultType.fs" />
+	<Compile Include="UnitsOfMeasure.fs" />
+	<Compile Include="AlgebraicTypes.fs" />
+	<None Include="Data\Abs-Return-Daily-Returns.csv" />
+	<None Include="scripts\TypeProvider.fsx" />
+	<None Include="Scripts\Interactive.fsx" />
+	<None Include="Scripts\HelloWorld.fsx" />
+	<None Include="Scripts\DataStructures.fsx" />
+	<None Include="Scripts\Composition.fsx" />
+	<None Include="Scripts\OptionType.fsx" />
+	<None Include="Scripts\ResultType.fsx" />
+	<None Include="Scripts\UnitsOfMeasure.fsx" />
+	<None Include="Scripts\AlgebraicTypes.fsx" />
+  </ItemGroup>
+	
+</Project>
