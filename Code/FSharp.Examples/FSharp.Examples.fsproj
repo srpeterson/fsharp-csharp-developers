@@ -15,6 +15,7 @@
     <None Include="Scripts\ResultType.fsx" />
     <None Include="Scripts\UnitsOfMeasure.fsx" />
     <None Include="Scripts\AlgebraicTypes.fsx" />
+    <Compile Include="DomainModeling.fs" />
     <Compile Include="Interactive.fs" />
     <Compile Include="HelloWorld.fs" />
     <Compile Include="DataStructures.fs" />
