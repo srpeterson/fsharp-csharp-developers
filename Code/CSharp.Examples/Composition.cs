@@ -1,26 +1,12 @@
-﻿namespace CSharp.Examples
+﻿namespace CSharp.Examples;
+
+public class Composition
 {
-    public class CompositionExample
+    public int SubtractOneSquareAddTen(int input)
     {
-        public string WhatIsTheAnswer(int input)
-        {
-            return input
-                .SubtractOne()
-                .Square()
-                .AddTen()
-                .TheAnswer("The extension chaining answer:");
-        }
+        return input
+            .SubtractOne()
+            .Square()
+            .AddTen();
     }
-
-    public static class CompositionExtensions
-    {
-        public static int SubtractOne(this int input) => input - 1;
-
-        public static int Square(this int input) => input * input;
-
-        public static int AddTen(this int input) => input + 10;
-
-        public static string TheAnswer(this int input, string prefix) => $"{prefix} {input}";
-    }
-
 }
