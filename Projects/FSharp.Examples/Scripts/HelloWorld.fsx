@@ -72,3 +72,19 @@ type DoSomethingWithInt = (int -> bool)
 
 //higher order function (accepts a function as a parameter or refurns a function)
 let withType (parm: DoSomethingWithInt) x = parm x
+
+let myFirstChoiceFuntion (i:int) = 
+    if i = 0 then
+        Choice1Of3 true
+    else if i < 10 then
+        Choice2Of3 "This is less than 10"
+    else
+        Choice3Of3 (i * 2)
+
+let foo = myFirstChoiceFuntion 0 
+
+let choicePatternMatch ch = 
+    match ch with
+    | Choice1Of3 t -> printfn "This is a boolean choice: %b" t
+    | Choice2Of3 t -> printfn "This is a string choice: %s" t
+    | Choice3Of3 t -> printfn "This is an integer choice: %i" t

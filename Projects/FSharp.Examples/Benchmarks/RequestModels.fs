@@ -57,372 +57,363 @@ module BenchmarkRequestDtos =
         TimeWindows: BenchmarkTimeWindowDto list option
     }
 
-module CreateAbsoluteReturnBenchmarkDto =
-    open BenchmarkRequestDtos
+    module CreateAbsoluteReturnBenchmark =
 
-    type TimeWindowDto = { 
-        FromDate: DateTime
-        ReturnComponentBenchmarkId: Guid option
-        ReturnComponentResourceId: int64 option
-        BasisPointAdjustment: int option
-    }
-
-    type CreateAbsoluteReturnBenchmarkDto = { 
-        Name: string option
-        CalculationFrequencyId: byte
-        BaseCurrencyCode: string option
-        PortfolioAnalyticsCalendarId: int option
-        IncludeBookedValues: bool
-        NumberOfDaysInYearId: byte option
-        IsLagged: bool
-        CustomLagDate: DateOnly option
-        Description: string option
-        TimeWindows: TimeWindowDto list option
-    }
-
-    let toCreateAbsoluteReturnBenchmarkDto (createBenchmarkDto: CreateBenchmarkDto) : CreateAbsoluteReturnBenchmarkDto =
-
-        let timeWindows = 
-            match  createBenchmarkDto.TimeWindows with
-            | None -> None
-            | Some tw -> 
-                tw 
-                |> List.map(fun tw -> 
-                    { 
-                        FromDate = tw.FromDate
-                        ReturnComponentBenchmarkId = tw.ReturnComponentBenchmarkId
-                        ReturnComponentResourceId = tw.ReturnComponentResourceId
-                        BasisPointAdjustment = tw.BasisPointAdjustment
-                    })
-                |> Some
-
-        {
-             Name = createBenchmarkDto.Name
-             CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
-             BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
-             PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
-             IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
-             NumberOfDaysInYearId = createBenchmarkDto.NumberOfDaysInYearId
-             IsLagged = createBenchmarkDto.IsLagged
-             CustomLagDate = createBenchmarkDto.CustomLagDate
-             Description = createBenchmarkDto.Description
-             TimeWindows = timeWindows
+        type TimeWindowDto = { 
+            FromDate: DateTime
+            ReturnComponentBenchmarkId: Guid option
+            ReturnComponentResourceId: int64 option
+            BasisPointAdjustment: int option
         }
 
-module CreateAssetWeightedBenchmarkDto =
-    open BenchmarkRequestDtos
-
-    type AssetWeightedLineItemDto = { 
-        ReturnComponentBenchmarkId: Guid option
-        ReturnComponentResourceId: int64 option
-        WeightingComponentResourceId: int64 option
-    }
-
-    type TimeWindowDto = { 
-        FromDate: DateTime
-        LineItems: AssetWeightedLineItemDto list option
-    }
-
-    type CreateAssetWeightedBenchmarkDto = { 
-        Name: string option
-        CalculationFrequencyId: byte
-        BaseCurrencyCode: string option
-        WeightingMethodologyId: byte option
-        PortfolioAnalyticsCalendarId: int option
-        IncludeBookedValues: bool
-        PerformanceVariationCode: string option
-        IsLagged: bool
-        CustomLagDate: DateOnly option
-        Description: string option
-        TimeWindows: TimeWindowDto list option
-    }
-
-    let toCreateAssetWeightedBenchmarkDto (createBenchmarkDto: CreateBenchmarkDto) : CreateAssetWeightedBenchmarkDto =
-
-        let lineItems (benchmarkLineItemDtos: BenchmarkLineItemDto list option) = 
-            match  benchmarkLineItemDtos with
-            | None -> None
-            | Some tw -> 
-                tw 
-                |> List.map(fun li -> 
-                    { 
-                        ReturnComponentBenchmarkId= li.ReturnComponentBenchmarkId
-                        ReturnComponentResourceId= li.ReturnComponentResourceId
-                        WeightingComponentResourceId = li.WeightingComponentResourceId
-                    })
-                |> Some
-
-        let timeWindows = 
-            match  createBenchmarkDto.TimeWindows with
-            | None -> None
-            | Some tw -> 
-                tw 
-                |> List.map(fun tw -> 
-                    { 
-                        FromDate = tw.FromDate
-                        LineItems = tw.LineItems |> lineItems
-                    })
-                |> Some
-
-        {
-             Name = createBenchmarkDto.Name
-             CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
-             BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
-             WeightingMethodologyId = createBenchmarkDto.WeightingMethodologyId
-             PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
-             IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
-             PerformanceVariationCode = createBenchmarkDto.PerformanceVariationCode
-             IsLagged = createBenchmarkDto.IsLagged
-             CustomLagDate = createBenchmarkDto.CustomLagDate
-             Description = createBenchmarkDto.Description
-             TimeWindows = timeWindows
+        type CreateAbsoluteReturnBenchmarkDto = { 
+            Name: string option
+            CalculationFrequencyId: byte
+            BaseCurrencyCode: string option
+            PortfolioAnalyticsCalendarId: int option
+            IncludeBookedValues: bool
+            NumberOfDaysInYearId: byte option
+            IsLagged: bool
+            CustomLagDate: DateOnly option
+            Description: string option
+            TimeWindows: TimeWindowDto list option
         }
 
-module CreateCompositeReturnBenchmarkDto =
-    open BenchmarkRequestDtos
+        let create (createBenchmarkDto: CreateBenchmarkDto) : CreateAbsoluteReturnBenchmarkDto =
 
-    type TimeWindowDto = { 
-        FromDate: DateTime
-        AssetSelectionSetId: int64 option
-        TagRefPropertyDefinitionId: int option
-        TagId: int option
-    }
+            let timeWindows = 
+                match  createBenchmarkDto.TimeWindows with
+                | None -> None
+                | Some tw -> 
+                    tw 
+                    |> List.map(fun tw -> 
+                        { 
+                            FromDate = tw.FromDate
+                            ReturnComponentBenchmarkId = tw.ReturnComponentBenchmarkId
+                            ReturnComponentResourceId = tw.ReturnComponentResourceId
+                            BasisPointAdjustment = tw.BasisPointAdjustment
+                        })
+                    |> Some
 
-    type CreateCompositeReturnBenchmarkDto = { 
-        Name: string option
-        CalculationFrequencyId: byte
-        BaseCurrencyCode: string option
-        PortfolioAnalyticsCalendarId: int option
-        IncludeBookedValues: bool
-        PerformanceVariationCode: string option
-        IsLagged: bool
-        CustomLagDate: DateOnly option
-        Description: string option
-        TimeWindows: TimeWindowDto list option
-    }
+            {
+                 Name = createBenchmarkDto.Name
+                 CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
+                 BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
+                 PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
+                 IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
+                 NumberOfDaysInYearId = createBenchmarkDto.NumberOfDaysInYearId
+                 IsLagged = createBenchmarkDto.IsLagged
+                 CustomLagDate = createBenchmarkDto.CustomLagDate
+                 Description = createBenchmarkDto.Description
+                 TimeWindows = timeWindows
+            }
 
-    let toCreateCompositeReturnBenchmarkDto (createBenchmarkDto: CreateBenchmarkDto) : CreateCompositeReturnBenchmarkDto =
+    module CreateAssetWeightedBenchmark =
 
-        let timeWindows = 
-            match  createBenchmarkDto.TimeWindows with
-            | None -> None
-            | Some tw -> 
-                tw 
-                |> List.map(fun tw -> 
-                    { 
-                        FromDate = tw.FromDate
-                        AssetSelectionSetId = tw.AssetSelectionSetId
-                        TagRefPropertyDefinitionId = tw.TagRefPropertyDefinitionId
-                        TagId = tw.TagId
-                    })
-                |> Some
-
-        {
-             Name = createBenchmarkDto.Name
-             CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
-             BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
-             PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
-             IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
-             PerformanceVariationCode = createBenchmarkDto.PerformanceVariationCode
-             IsLagged = createBenchmarkDto.IsLagged
-             CustomLagDate = createBenchmarkDto.CustomLagDate
-             Description = createBenchmarkDto.Description
-             TimeWindows = timeWindows
+        type AssetWeightedLineItemDto = { 
+            ReturnComponentBenchmarkId: Guid option
+            ReturnComponentResourceId: int64 option
+            WeightingComponentResourceId: int64 option
         }
 
-module CreateCompositeWeightedBenchmarkDto =
-    open BenchmarkRequestDtos
-
-    type CompositeWeightedLineItemDto = { 
-        ReturnComponentBenchmarkId: Guid option
-        ReturnComponentResourceId: int64 option
-        WeightingComponentTagId: int option
-    }
-
-    type TimeWindowDto = { 
-        FromDate: DateTime
-        AssetSelectionSetId: int64 option
-        TagRefPropertyDefinitionId: int option
-        LineItems: CompositeWeightedLineItemDto list option
-    }
-
-    type CreateCompositeWeightedBenchmarkDto = { 
-        Name: string option
-        CalculationFrequencyId: byte
-        BaseCurrencyCode: string option
-        WeightingMethodologyId: byte option
-        PortfolioAnalyticsCalendarId: int option
-        IncludeBookedValues: bool
-        PerformanceVariationCode: string option
-        IsLagged: bool
-        CustomLagDate: DateOnly option
-        Description: string option
-        TimeWindows: TimeWindowDto list option
-    }
-
-    let toCreateCompositeWeightedBenchmarkDto (createBenchmarkDto: CreateBenchmarkDto) : CreateCompositeWeightedBenchmarkDto =
-
-        let lineItems (benchmarkLineItemDtos: BenchmarkLineItemDto list option) = 
-            match  benchmarkLineItemDtos with
-            | None -> None
-            | Some tw -> 
-                tw 
-                |> List.map(fun li -> 
-                    { 
-                        ReturnComponentBenchmarkId= li.ReturnComponentBenchmarkId
-                        ReturnComponentResourceId= li.ReturnComponentResourceId
-                        WeightingComponentTagId = li.WeightingComponentTagId
-                    })
-                |> Some
-
-        let timeWindows = 
-            match  createBenchmarkDto.TimeWindows with
-            | None -> None
-            | Some tw -> 
-                tw 
-                |> List.map(fun tw -> 
-                    { 
-                        FromDate = tw.FromDate
-                        AssetSelectionSetId = tw.AssetSelectionSetId
-                        TagRefPropertyDefinitionId = tw.TagRefPropertyDefinitionId
-                        LineItems = tw.LineItems |> lineItems
-                    })
-                |> Some
-
-        {
-             Name = createBenchmarkDto.Name
-             CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
-             BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
-             WeightingMethodologyId = createBenchmarkDto.WeightingMethodologyId
-             PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
-             IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
-             PerformanceVariationCode = createBenchmarkDto.PerformanceVariationCode
-             IsLagged = createBenchmarkDto.IsLagged
-             CustomLagDate = createBenchmarkDto.CustomLagDate
-             Description = createBenchmarkDto.Description
-             TimeWindows = timeWindows
+        type TimeWindowDto = { 
+            FromDate: DateTime
+            LineItems: AssetWeightedLineItemDto list option
         }
 
-module CreatePullForwardBenchmarkDto =
-    open BenchmarkRequestDtos
-
-    type TimeWindowDto = { 
-        FromDate: DateTime
-        ReturnComponentBenchmarkId: Guid option
-        ReturnComponentResourceId: int64 option
-        PullForwardLength: int option
-    }
-
-    type CreatePullForwardBenchmarkDto = { 
-        Name: string option
-        CalculationFrequencyId: byte
-        BaseCurrencyCode: string option
-        PortfolioAnalyticsCalendarId: int option
-        IncludeBookedValues: bool
-        IsLagged: bool
-        CustomLagDate: DateOnly option
-        Description: string option
-        TimeWindows: TimeWindowDto list option
-    }
-
-    let toCreatePullForwardBenchmarkDto (createBenchmarkDto: CreateBenchmarkDto) : CreatePullForwardBenchmarkDto =
-
-        let timeWindows = 
-            match  createBenchmarkDto.TimeWindows with
-            | None -> None
-            | Some tw -> 
-                tw 
-                |> List.map(fun tw -> 
-                    { 
-                        FromDate = tw.FromDate
-                        ReturnComponentBenchmarkId = tw.ReturnComponentBenchmarkId
-                        ReturnComponentResourceId = tw.ReturnComponentResourceId
-                        PullForwardLength = tw.PullForwardLength
-                    })
-                |> Some
-
-        {
-             Name = createBenchmarkDto.Name
-             CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
-             BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
-             PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
-             IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
-             IsLagged = createBenchmarkDto.IsLagged
-             CustomLagDate = createBenchmarkDto.CustomLagDate
-             Description = createBenchmarkDto.Description
-             TimeWindows = timeWindows
+        type CreateAssetWeightedBenchmarkDto = { 
+            Name: string option
+            CalculationFrequencyId: byte
+            BaseCurrencyCode: string option
+            WeightingMethodologyId: byte option
+            PortfolioAnalyticsCalendarId: int option
+            IncludeBookedValues: bool
+            PerformanceVariationCode: string option
+            IsLagged: bool
+            CustomLagDate: DateOnly option
+            Description: string option
+            TimeWindows: TimeWindowDto list option
         }
 
-module CreateStaticWeightedBenchmarkDto =
-    open BenchmarkRequestDtos
+        let create (createBenchmarkDto: CreateBenchmarkDto) : CreateAssetWeightedBenchmarkDto =
 
-    type StaticWeightedLineItemDto = { 
-        ReturnComponentBenchmarkId: Guid option
-        ReturnComponentResourceId: int64 option
-        Weight: decimal option
-    }
+            let lineItems (benchmarkLineItemDtos: BenchmarkLineItemDto list option) = 
+                match  benchmarkLineItemDtos with
+                | None -> None
+                | Some tw -> 
+                    tw 
+                    |> List.map(fun li -> 
+                        { 
+                            ReturnComponentBenchmarkId= li.ReturnComponentBenchmarkId
+                            ReturnComponentResourceId= li.ReturnComponentResourceId
+                            WeightingComponentResourceId = li.WeightingComponentResourceId
+                        })
+                    |> Some
 
-    type TimeWindowDto = { 
-        FromDate: DateTime
-        LineItems: StaticWeightedLineItemDto list option
-    }
+            let timeWindows = 
+                match  createBenchmarkDto.TimeWindows with
+                | None -> None
+                | Some tw -> 
+                    tw 
+                    |> List.map(fun tw -> 
+                        { 
+                            FromDate = tw.FromDate
+                            LineItems = tw.LineItems |> lineItems
+                        })
+                    |> Some
 
-    type CreateStaticWeightedBenchmarkDto = { 
-        Name: string option
-        CalculationFrequencyId: byte
-        RebalanceFrequencyId: byte option
-        RebalanceFrequencyCustomMonths: BenchmarkRebalanceFrequencyCustomMonthsDto option
-        BaseCurrencyCode: string option
-        PortfolioAnalyticsCalendarId: int option
-        IncludeBookedValues: bool
-        UseDailyToMonthlyLinking: bool option
-        IsLagged: bool
-        CustomLagDate: DateOnly option
-        Description: string option
-        TimeWindows: TimeWindowDto list option
-    }
+            {
+                 Name = createBenchmarkDto.Name
+                 CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
+                 BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
+                 WeightingMethodologyId = createBenchmarkDto.WeightingMethodologyId
+                 PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
+                 IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
+                 PerformanceVariationCode = createBenchmarkDto.PerformanceVariationCode
+                 IsLagged = createBenchmarkDto.IsLagged
+                 CustomLagDate = createBenchmarkDto.CustomLagDate
+                 Description = createBenchmarkDto.Description
+                 TimeWindows = timeWindows
+            }
 
-    let toCreateStaticWeightedBenchmarkDto (createBenchmarkDto: CreateBenchmarkDto) : CreateStaticWeightedBenchmarkDto =
+    module CreateCompositeReturnBenchmark =
 
-        let lineItems (benchmarkLineItemDtos: BenchmarkLineItemDto list option) = 
-            match  benchmarkLineItemDtos with
-            | None -> None
-            | Some tw -> 
-                tw 
-                |> List.map(fun li -> 
-                    { 
-                        ReturnComponentBenchmarkId= li.ReturnComponentBenchmarkId
-                        ReturnComponentResourceId= li.ReturnComponentResourceId
-                        Weight= li.Weight
-                    })
-                |> Some
-
-        let timeWindows = 
-            match  createBenchmarkDto.TimeWindows with
-            | None -> None
-            | Some tw -> 
-                tw 
-                |> List.map(fun tw -> 
-                    { 
-                        FromDate = tw.FromDate
-                        LineItems = tw.LineItems |> lineItems
-                    })
-                |> Some
-
-        {
-             Name = createBenchmarkDto.Name
-             CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
-             RebalanceFrequencyId = createBenchmarkDto.RebalanceFrequencyId
-             RebalanceFrequencyCustomMonths = createBenchmarkDto.CreateBenchmarkRebalanceFrequencyCustomMonthsDto
-             BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
-             PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
-             IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
-             UseDailyToMonthlyLinking = createBenchmarkDto.UseDailyToMonthlyLinking
-             IsLagged = createBenchmarkDto.IsLagged
-             CustomLagDate = createBenchmarkDto.CustomLagDate
-             Description = createBenchmarkDto.Description
-             TimeWindows = timeWindows
+        type TimeWindowDto = { 
+            FromDate: DateTime
+            AssetSelectionSetId: int64 option
+            TagRefPropertyDefinitionId: int option
+            TagId: int option
         }
 
-      
+        type CreateCompositeReturnBenchmarkDto = { 
+            Name: string option
+            CalculationFrequencyId: byte
+            BaseCurrencyCode: string option
+            PortfolioAnalyticsCalendarId: int option
+            IncludeBookedValues: bool
+            PerformanceVariationCode: string option
+            IsLagged: bool
+            CustomLagDate: DateOnly option
+            Description: string option
+            TimeWindows: TimeWindowDto list option
+        }
 
+        let create (createBenchmarkDto: CreateBenchmarkDto) : CreateCompositeReturnBenchmarkDto =
+
+            let timeWindows = 
+                match  createBenchmarkDto.TimeWindows with
+                | None -> None
+                | Some tw -> 
+                    tw 
+                    |> List.map(fun tw -> 
+                        { 
+                            FromDate = tw.FromDate
+                            AssetSelectionSetId = tw.AssetSelectionSetId
+                            TagRefPropertyDefinitionId = tw.TagRefPropertyDefinitionId
+                            TagId = tw.TagId
+                        })
+                    |> Some
+
+            {
+                 Name = createBenchmarkDto.Name
+                 CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
+                 BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
+                 PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
+                 IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
+                 PerformanceVariationCode = createBenchmarkDto.PerformanceVariationCode
+                 IsLagged = createBenchmarkDto.IsLagged
+                 CustomLagDate = createBenchmarkDto.CustomLagDate
+                 Description = createBenchmarkDto.Description
+                 TimeWindows = timeWindows
+            }
+
+    module CreateCompositeWeightedBenchmark =
+
+        type CompositeWeightedLineItemDto = { 
+            ReturnComponentBenchmarkId: Guid option
+            ReturnComponentResourceId: int64 option
+            WeightingComponentTagId: int option
+        }
+
+        type TimeWindowDto = { 
+            FromDate: DateTime
+            AssetSelectionSetId: int64 option
+            TagRefPropertyDefinitionId: int option
+            LineItems: CompositeWeightedLineItemDto list option
+        }
+
+        type CreateCompositeWeightedBenchmarkDto = { 
+            Name: string option
+            CalculationFrequencyId: byte
+            BaseCurrencyCode: string option
+            WeightingMethodologyId: byte option
+            PortfolioAnalyticsCalendarId: int option
+            IncludeBookedValues: bool
+            PerformanceVariationCode: string option
+            IsLagged: bool
+            CustomLagDate: DateOnly option
+            Description: string option
+            TimeWindows: TimeWindowDto list option
+        }
+
+        let create (createBenchmarkDto: CreateBenchmarkDto) : CreateCompositeWeightedBenchmarkDto =
+
+            let lineItems (benchmarkLineItemDtos: BenchmarkLineItemDto list option) = 
+                match  benchmarkLineItemDtos with
+                | None -> None
+                | Some tw -> 
+                    tw 
+                    |> List.map(fun li -> 
+                        { 
+                            ReturnComponentBenchmarkId= li.ReturnComponentBenchmarkId
+                            ReturnComponentResourceId= li.ReturnComponentResourceId
+                            WeightingComponentTagId = li.WeightingComponentTagId
+                        })
+                    |> Some
+
+            let timeWindows = 
+                match  createBenchmarkDto.TimeWindows with
+                | None -> None
+                | Some tw -> 
+                    tw 
+                    |> List.map(fun tw -> 
+                        { 
+                            FromDate = tw.FromDate
+                            AssetSelectionSetId = tw.AssetSelectionSetId
+                            TagRefPropertyDefinitionId = tw.TagRefPropertyDefinitionId
+                            LineItems = tw.LineItems |> lineItems
+                        })
+                    |> Some
+
+            {
+                 Name = createBenchmarkDto.Name
+                 CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
+                 BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
+                 WeightingMethodologyId = createBenchmarkDto.WeightingMethodologyId
+                 PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
+                 IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
+                 PerformanceVariationCode = createBenchmarkDto.PerformanceVariationCode
+                 IsLagged = createBenchmarkDto.IsLagged
+                 CustomLagDate = createBenchmarkDto.CustomLagDate
+                 Description = createBenchmarkDto.Description
+                 TimeWindows = timeWindows
+            }
+
+    module CreatePullForwardBenchmark =
+
+        type TimeWindowDto = { 
+            FromDate: DateTime
+            ReturnComponentBenchmarkId: Guid option
+            ReturnComponentResourceId: int64 option
+            PullForwardLength: int option
+        }
+
+        type CreatePullForwardBenchmarkDto = { 
+            Name: string option
+            CalculationFrequencyId: byte
+            BaseCurrencyCode: string option
+            PortfolioAnalyticsCalendarId: int option
+            IncludeBookedValues: bool
+            IsLagged: bool
+            CustomLagDate: DateOnly option
+            Description: string option
+            TimeWindows: TimeWindowDto list option
+        }
+
+        let create (createBenchmarkDto: CreateBenchmarkDto) : CreatePullForwardBenchmarkDto =
+
+            let timeWindows = 
+                match  createBenchmarkDto.TimeWindows with
+                | None -> None
+                | Some tw -> 
+                    tw 
+                    |> List.map(fun tw -> 
+                        { 
+                            FromDate = tw.FromDate
+                            ReturnComponentBenchmarkId = tw.ReturnComponentBenchmarkId
+                            ReturnComponentResourceId = tw.ReturnComponentResourceId
+                            PullForwardLength = tw.PullForwardLength
+                        })
+                    |> Some
+
+            {
+                 Name = createBenchmarkDto.Name
+                 CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
+                 BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
+                 PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
+                 IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
+                 IsLagged = createBenchmarkDto.IsLagged
+                 CustomLagDate = createBenchmarkDto.CustomLagDate
+                 Description = createBenchmarkDto.Description
+                 TimeWindows = timeWindows
+            }
+
+    module CreateStaticWeightedBenchmark =
+
+        type StaticWeightedLineItemDto = { 
+            ReturnComponentBenchmarkId: Guid option
+            ReturnComponentResourceId: int64 option
+            Weight: decimal option
+        }
+
+        type TimeWindowDto = { 
+            FromDate: DateTime
+            LineItems: StaticWeightedLineItemDto list option
+        }
+
+        type CreateStaticWeightedBenchmarkDto = { 
+            Name: string option
+            CalculationFrequencyId: byte
+            RebalanceFrequencyId: byte option
+            RebalanceFrequencyCustomMonths: BenchmarkRebalanceFrequencyCustomMonthsDto option
+            BaseCurrencyCode: string option
+            PortfolioAnalyticsCalendarId: int option
+            IncludeBookedValues: bool
+            UseDailyToMonthlyLinking: bool option
+            IsLagged: bool
+            CustomLagDate: DateOnly option
+            Description: string option
+            TimeWindows: TimeWindowDto list option
+        }
+
+        let create (createBenchmarkDto: CreateBenchmarkDto) : CreateStaticWeightedBenchmarkDto =
+
+            let lineItems (benchmarkLineItemDtos: BenchmarkLineItemDto list option) = 
+                match  benchmarkLineItemDtos with
+                | None -> None
+                | Some tw -> 
+                    tw 
+                    |> List.map(fun li -> 
+                        { 
+                            ReturnComponentBenchmarkId= li.ReturnComponentBenchmarkId
+                            ReturnComponentResourceId= li.ReturnComponentResourceId
+                            Weight= li.Weight
+                        })
+                    |> Some
+
+            let timeWindows = 
+                match  createBenchmarkDto.TimeWindows with
+                | None -> None
+                | Some tw -> 
+                    tw 
+                    |> List.map(fun tw -> 
+                        { 
+                            FromDate = tw.FromDate
+                            LineItems = tw.LineItems |> lineItems
+                        })
+                    |> Some
+
+            {
+                 Name = createBenchmarkDto.Name
+                 CalculationFrequencyId = createBenchmarkDto.CalculationFrequencyId
+                 RebalanceFrequencyId = createBenchmarkDto.RebalanceFrequencyId
+                 RebalanceFrequencyCustomMonths = createBenchmarkDto.CreateBenchmarkRebalanceFrequencyCustomMonthsDto
+                 BaseCurrencyCode = createBenchmarkDto.BaseCurrencyCode
+                 PortfolioAnalyticsCalendarId = createBenchmarkDto.PortfolioAnalyticsCalendarId
+                 IncludeBookedValues = createBenchmarkDto.IncludeBookedValues
+                 UseDailyToMonthlyLinking = createBenchmarkDto.UseDailyToMonthlyLinking
+                 IsLagged = createBenchmarkDto.IsLagged
+                 CustomLagDate = createBenchmarkDto.CustomLagDate
+                 Description = createBenchmarkDto.Description
+                 TimeWindows = timeWindows
+            }

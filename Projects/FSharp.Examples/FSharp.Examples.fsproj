@@ -6,7 +6,7 @@
 
   <ItemGroup>
 	<Compile Include="Benchmarks\RequestModels.fs" />
-	<Compile Include="Benchmarks\CreateBenchmark.fs" />
+	<Compile Include="Benchmarks\CreateBenchmarkDto.fs" />
 	<Compile Include="Interactive.fs" />
 	<Compile Include="HelloWorld.fs" />
 	<Compile Include="DataStructures.fs" />
