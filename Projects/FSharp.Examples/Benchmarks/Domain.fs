@@ -20,7 +20,7 @@ module CalculationFrequency =
         | Month -> MonthValue
         | Quarter -> QuarterValue
 
-    let create (frquencyId: byte) = 
+    let create frquencyId = 
         match frquencyId with
         | DayValue -> Ok Day
         | MonthValue -> Ok Month
@@ -37,16 +37,13 @@ module NumberOfDaysInYear =
     [<Literal>]
     let private Days252PerYearValue = 2uy
 
-    [<Literal>]
-    let private QuarterValue = 3uy
-
-    let value calculationFrequency = 
-        match calculationFrequency with
+    let value numberOfDaysInYear = 
+        match numberOfDaysInYear with
         | Days365PerYear -> Days365PerYearValue
         | Days252PerYear -> Days252PerYearValue
 
-    let create (frquencyId: byte) = 
-        match frquencyId with
+    let create numberOfDaysInYearId = 
+        match numberOfDaysInYearId with
         | Days365PerYearValue -> Ok Days365PerYear
         | Days252PerYearValue -> Ok Days252PerYear
         | _ -> Error "Invalid FrquencyId"
@@ -107,13 +104,13 @@ module BenchmarkDtoValidation =
         | Ok _ -> Ok createBenchmarkDto
         | _ -> Error "InvalidFrquencyType Id"
 
-    let nameIsNone (name: string option) = 
+    let private nameIsNone (name: string option) = 
         let result = name.IsSome
         match result with
         | true  -> Ok (name |> Option.get)
         | _ -> Error "Name is Empty"
 
-    let nameIsTooLong (name: string) = 
+    let private nameIsTooLong (name: string) = 
         let result = name.Length > MaxNameLength
         match result with
         | true  -> Ok name
@@ -128,13 +125,13 @@ module BenchmarkDtoValidation =
         | Ok s -> Ok createBenchmarkDto
         | Error err -> Error err
 
-    let numberOfDaysInYearIsProvided (numberOfDaysInYearId: byte option) = 
+    let private numberOfDaysInYearIsProvided (numberOfDaysInYearId: byte option) = 
         let result = numberOfDaysInYearId.IsSome
         match result with
         | true  -> Ok (numberOfDaysInYearId |> Option.get)
         | _ -> Error "NumberOfDaysInYear must be provided"
 
-    let numberOfDaysInYearIdIsValid (numberOfDaysInYearId: byte) = 
+    let private numberOfDaysInYearIdIsValid (numberOfDaysInYearId: byte) = 
         let result = numberOfDaysInYearId |> NumberOfDaysInYear.create
         match result with
         | Ok _  -> Ok numberOfDaysInYearId
@@ -154,7 +151,6 @@ module BenchmarkDtoValidation =
         match result with
         | true  -> Ok (description |> Option.get)
         | _ -> Error "Name is Empty"
-
 
 module CreateValidAbsoluteReturnBenchmarkDto =
     open BenchmarkRequests.CreateAbsoluteReturnBenchmarkDto
