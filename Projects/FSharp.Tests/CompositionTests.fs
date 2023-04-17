@@ -36,7 +36,7 @@ module ``C# Composition Tests`` =
         actual |>  should equal expected
 
 module ``Foo`` =
-    open Fsharp.Examples.Benchmarks.BenchmarkRequestDtos
+    open Fsharp.Examples.Benchmarks.BenchmarkRequests
     open Fsharp.Examples.Benchmarks.CreateBenchmarkDto
 
     let createBenchmarkLineItemDto : BenchmarkLineItemDto =  {
@@ -71,7 +71,7 @@ module ``Foo`` =
         November = true
         December = true }
 
-    let createBenchmarkDto : Fsharp.Examples.Benchmarks.BenchmarkRequestDtos.CreateBenchmarkDto = 
+    let createBenchmarkDto : Fsharp.Examples.Benchmarks.BenchmarkRequests.CreateBenchmarkDto = 
         {
             Name = Some "foo"
             TypeId = 1uy
@@ -91,14 +91,14 @@ module ``Foo`` =
             TimeWindows = Some [createBenchmarkTimeWindowDto]
         }
 
-    [<Fact>]
-    let ``Test`` () =
-        //let expected = createBenchmarkDto
-        let result = Fsharp.Examples.Benchmarks.CreateBenchmarkDto.toCreateAbsoluteReturnBenchmarkDto createBenchmarkDto
+    //[<Fact>]
+    //let ``Test`` () =
+    //    //let expected = createBenchmarkDto
+    //    let result = Fsharp.Examples.Benchmarks.CreateBenchmarkDto.toCreateAbsoluteReturnBenchmarkDto createBenchmarkDto
         
-        let dto = result |> Result.defaultValue
+    //    let dto = result |> Result.defaultValue
 
-        let actual = true
-        let expected = true
-        actual |>  should equal expected
+    //    let actual = true
+    //    let expected = true
+    //    actual |>  should equal expected
         

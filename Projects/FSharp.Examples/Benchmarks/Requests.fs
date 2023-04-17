@@ -1,7 +1,7 @@
 ﻿namespace Fsharp.Examples.Benchmarks
 open System
 
-module BenchmarkRequestDtos =
+module BenchmarkRequests =
 
     type BenchmarkLineItemDto = { 
         ReturnComponentBenchmarkId: Guid option
@@ -57,7 +57,7 @@ module BenchmarkRequestDtos =
         TimeWindows: BenchmarkTimeWindowDto list option
     }
 
-    module CreateAbsoluteReturnBenchmark =
+    module CreateAbsoluteReturnBenchmarkDto =
 
         type TimeWindowDto = { 
             FromDate: DateTime

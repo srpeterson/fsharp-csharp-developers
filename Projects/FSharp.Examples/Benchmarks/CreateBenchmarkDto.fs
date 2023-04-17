@@ -1,38 +1,49 @@
 ﻿namespace Fsharp.Examples.Benchmarks
 
 module CreateBenchmarkDto =
-    open BenchmarkRequestDtos
+    open BenchmarkRequests
 
     type CreateBenchmarkDtoType = 
-        | CreateAbsoluteReturnBenchmarkDto
-        | CreateAssetWeightedBenchmarkDto
-        | CreateCompositeReturnBenchmarkDto
-        | CreateCompositeWeightedBenchmarkDto
-        | CreatePullForwardBenchmarkDto
-        | CreateStaticWeightedBenchmarkDto
+        | CreateAbsoluteReturnBenchmark
+        | CreateAssetWeightedBenchmark
+        | CreateCompositeReturnBenchmark
+        | CreateCompositeWeightedBenchmark
+        | CreatePullForwardBenchmark
+        | CreateStaticWeightedBenchmark
 
-    //let getBenchmarkTypeId createDto =
-    //    match createDto with
-    //    | CreateAbsoluteReturnBenchmarkDto -> 1uy
-    //    | CreateAssetWeightedBenchmarkDto -> 2uy
-    //    | CreateCompositeReturnBenchmarkDto -> 3uy
-    //    | CreateCompositeWeightedBenchmarkDto -> 4uy
-    //    | CreatePullForwardBenchmarkDto -> 5uy
-    //    | CreateStaticWeightedBenchmarkDto -> 6uy
+    let getBenchmarkTypeId benchamrkType =
+        match benchamrkType with
+        | CreateAbsoluteReturnBenchmark -> 1uy
+        | CreateAssetWeightedBenchmark -> 2uy
+        | CreateCompositeReturnBenchmark -> 3uy
+        | CreateCompositeWeightedBenchmark -> 4uy
+        | CreatePullForwardBenchmark -> 5uy
+        | CreateStaticWeightedBenchmark -> 6uy
 
-    let getBenchmarkType typeId =
-        match typeId with
-        | 1uy -> CreateAbsoluteReturnBenchmarkDto
-        | 2uy -> CreateAssetWeightedBenchmarkDto
-        | 3uy -> CreateCompositeReturnBenchmarkDto
-        | 4uy -> CreateCompositeWeightedBenchmarkDto
-        | 5uy -> CreatePullForwardBenchmarkDto
-        | 6uy -> CreateStaticWeightedBenchmarkDto
-        | _  -> failwith "Unknown TypeId."
+    let (|IsValidTypeId|) (typId2: CreateBenchmarkDtoType) (typId: byte)  = 
+        let benchmarkTypeId = typId2 |> getBenchmarkTypeId
+        benchmarkTypeId = typId
 
-    let toCreateAbsoluteReturnBenchmarkDto createBenchmarkDto =
-        let benchmarkType = createBenchmarkDto.TypeId |> getBenchmarkType
-        match benchmarkType with
-        | CreateAbsoluteReturnBenchmarkDto -> createBenchmarkDto |> CreateAbsoluteReturnBenchmark.create |> Ok
-        | _ -> "Invalid AbsoluteReturn TypId" |> Error
+    //let toCreateAbsoluteReturnBenchmarkDto createBenchmarkDto =
+    //    let benchmarkType = createBenchmarkDto.TypeId |> getBenchmarkType
+    //    match benchmarkType with
+    //    | CreateAbsoluteReturnBenchmark -> createBenchmarkDto |> CreateAbsoluteReturnBenchmarkDto.create |> Ok
+    //    | _ -> "Invalid AbsoluteReturn TypId" |> Error
+
+module CreateBenchmarkDto2 =
+    open BenchmarkRequests.CreateAbsoluteReturnBenchmarkDto
+    open CreateBenchmarkDto
+
+    type ValidatedCreateAbsoluteReturnBenchmarkDto = { Name: string }
+
+    type BenchmarkDto = UnvalidatedBenchmarkDto of CreateAbsoluteReturnBenchmarkDto | ValidatedBenchmarkDto of ValidatedCreateAbsoluteReturnBenchmarkDto
+
+    let validateTypeId (createBenchmarkDto: BenchmarkRequests.CreateBenchmarkDto) =
+        match createBenchmarkDto.TypeId with
+        | IsValidTypeId CreateAbsoluteReturnBenchmark true  -> createBenchmarkDto.TypeId |> Ok
+        | _ -> ("Invalid Id") |> Error
+        
+
+    // what do I want to do?
+    // take an invalidated dto -> validate -> validated dto
 
