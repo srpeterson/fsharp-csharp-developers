@@ -79,7 +79,7 @@ module BenchmarkRequests =
             TimeWindows: TimeWindowDto list option
         }
 
-        let create (createBenchmarkDto: CreateBenchmarkDto) : CreateAbsoluteReturnBenchmarkDto =
+        let toDto (createBenchmarkDto: CreateBenchmarkDto) : CreateAbsoluteReturnBenchmarkDto =
 
             let timeWindows = 
                 match  createBenchmarkDto.TimeWindows with

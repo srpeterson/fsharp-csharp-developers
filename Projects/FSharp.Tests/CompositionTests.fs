@@ -35,10 +35,10 @@ module ``C# Composition Tests`` =
         let expected = 91
         actual |>  should equal expected
 
+//srp - to save off
 module ``Foo`` =
     open Fsharp.Examples.Benchmarks.BenchmarkRequests
-    open Fsharp.Examples.Benchmarks.CreateBenchmarkDto
-
+    
     let createBenchmarkLineItemDto : BenchmarkLineItemDto =  {
         ReturnComponentBenchmarkId = Some (Guid.NewGuid())
         ReturnComponentResourceId = Some 6L

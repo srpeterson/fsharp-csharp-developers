@@ -30,7 +30,7 @@ module HelloWorld =
     
     //option - how F# deals with 'null' in C#
     let eleven = Some 11
-    let twelve = None
+    let twelve: string option = None
     
     //if conditional (in F# we use if conditional only if 2 possible outcomes)
     let isLessThanTen x  = if x < 10 then "Less than ten" else "Greater than ten"
