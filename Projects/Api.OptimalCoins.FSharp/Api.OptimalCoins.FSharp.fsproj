@@ -17,7 +17,7 @@
   <ItemGroup>
     <None Include="Scripts\Scratchpad.fsx" />
     <Compile Include="Code\Validation.fs" />
-    <Compile Include="Code\CalulateCoins.fs" />
+    <Compile Include="Code\CalculateCoins.fs" />
     <Compile Include="Controllers\Http.fs" />
     <Compile Include="Controllers\CoinController.fs" />
     <Compile Include="Startup.fs" />
