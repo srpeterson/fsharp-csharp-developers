@@ -206,3 +206,68 @@ module CreateValidAbsoluteReturnBenchmarkDto =
         |> Result.bind validateNumberOfDaysInYearId
         |> Result.bind createAbsoluteReturnBenchmarkDto
         |> Result.map validatedBenchmark
+
+//module BenchMarkName =
+
+//    type T = BenchMarkName of string
+
+//    // create with continuation
+//    let createWithCont success failure (s: string) =
+//        if s.Length < 255
+//            then success (BenchMarkName s)
+//            else failure "Email address must contain an @ sign"
+
+//    // create directly
+//    let create s =
+//        let success e = Ok e
+//        let failure _  = Error "foo"
+//        createWithCont success failure s
+
+//    // unwrap with continuation
+//    let apply f (BenchMarkName e) = f e
+
+//    // unwrap directly
+//    let value e = apply id e
+
+
+
+module Example =
+
+    type UnValidatedName = UnValidatedName of string
+    type ValidatedName = ValidatedName of string
+
+    type UnValidatedDto = {Name: UnValidatedName; TypeId: byte }
+    type ValidatedDto = {Name: ValidatedName; TypeId: byte}
+
+    type Benchmark = UnValidatedDto of UnValidatedDto | ValidatedDto of ValidatedDto
+
+    let unValidatedDto: UnValidatedDto = {Name = UnValidatedName "Steve"; TypeId = 3uy}
+    let validatedDto: ValidatedDto = {Name = ValidatedName "Steve"; TypeId = 3uy }
+
+    type transformName = UnValidatedName -> Result<ValidatedName, string>
+
+    let validateName (unValidatedName: UnValidatedName) =
+        let (UnValidatedName name) = unValidatedName
+        if name.Length < 255 then Ok (ValidatedName name) else Error "Invalid name"
+     
+    let convert (f: transformName) (t: UnValidatedDto) : Result<Benchmark, string> =
+        let bob = f t.Name
+        match bob with
+        | Ok s ->  Ok (ValidatedDto {Name = s; TypeId = 3uy })
+        | Error s ->  Error s
+
+
+    //let foo name =
+    //    let bob = BenchMarkName.create name
+    //    match bob with 
+    //    | Ok s -> ValidatedName (BenchMarkName.value |> string)
+    //    | Error s -> UnValidatedName
+
+    //let foo unValidatedDto = 
+    //    let g = Ok |> Result.bind (convert validateName unValidatedDto)
+    //    g |> Result.map ("DDD")
+
+        //match convert validateName unValidatedDto with
+        //| Ok s -> s
+        //| Error s -> Error "D"
+    
