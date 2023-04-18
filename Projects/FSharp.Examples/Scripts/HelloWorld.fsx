@@ -92,12 +92,12 @@ module BenchmarkName =
     let private MaxNameLength = 255
 
     let private nameIsNone (name: string option) = 
-        let isSome (value: string option) = value.IsSome
-        name |> validateOption isSome "Name is none"
+        let predicate (value: string option) = value.IsSome
+        name |> validateOption predicate "Name is none"
 
     let private nameIsTooLong (name: string) = 
-        let lessThanMax (s: string) = s.Length < MaxNameLength
-        name |> validate lessThanMax $"Name exceeds max character length of '{MaxNameLength}'"
+        let predicate (s: string) = s.Length < MaxNameLength
+        name |> validate predicate $"Name exceeds max character length of '{MaxNameLength}'"
 
     let create (name: string option) = 
         let isValidName = 
@@ -135,8 +135,8 @@ module BenchmarkTypeId =
 
     let create (createBenchmarkDtoType: BenchmarkType) (typId: byte) = 
         let benchmarkTypeId = createBenchmarkDtoType |> getBenchmarkTypeId
-        let existsId (id: ValidBenchmarkTypeId) = id = ValidBenchmarkTypeId benchmarkTypeId
-        (ValidBenchmarkTypeId typId) |> validate existsId $"Invalid TypeId"
+        let predicate (id: ValidBenchmarkTypeId) = id = ValidBenchmarkTypeId benchmarkTypeId
+        (ValidBenchmarkTypeId typId) |> validate predicate $"Invalid TypeId"
 
 type LagDay = { AsDateOnly: DateOnly;  DaysSinceEpoch: int } 
 type ValidLagDay = private ValidLagDay of LagDay
@@ -145,12 +145,12 @@ module LagDay =
     open Validation
 
     let private ``date is before january 1 1900`` (lagDate: DateOnly) = 
-        let isValid (value: DateOnly) = value >= new DateOnly (1900, 1, 1)
-        lagDate |> validate isValid "Date can not be before Jaunary 1, 1900"
+        let predicate (value: DateOnly) = value >= new DateOnly (1900, 1, 1)
+        lagDate |> validate predicate "Date can not be before Jaunary 1, 1900"
 
     let private iEndOfMonth (lagDate: DateOnly) = 
-        let isEndOfMonth (value: DateOnly)  =  DateTime.DaysInMonth(value.Year, value.Month) = value.Day;
-        lagDate |> validate isEndOfMonth "Lag Date must be end of month"
+        let predicate (value: DateOnly)  =  DateTime.DaysInMonth(value.Year, value.Month) = value.Day;
+        lagDate |> validate predicate "Lag Date must be end of month"
 
     let create (lagDate: DateOnly) =
         let isValidLagDate = 
