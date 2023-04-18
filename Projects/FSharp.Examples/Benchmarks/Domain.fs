@@ -250,11 +250,11 @@ module Example =
         let (UnValidatedName name) = unValidatedName
         if name.Length < 255 then Ok (ValidatedName name) else Error "Invalid name"
      
-    let convert (f: transformName) (t: UnValidatedDto) : Result<Benchmark, string> =
+    let convert (f: transformName) (t: UnValidatedDto) =
         let bob = f t.Name
         match bob with
-        | Ok s ->  Ok (ValidatedDto {Name = s; TypeId = 3uy })
-        | Error s ->  Error s
+        | Ok s ->  Some (ValidatedDto {Name = s; TypeId = 3uy })
+        | Error s ->  None
 
 
     //let foo name =
