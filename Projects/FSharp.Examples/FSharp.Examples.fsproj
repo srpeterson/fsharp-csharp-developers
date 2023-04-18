@@ -16,6 +16,7 @@
 	<Compile Include="UnitsOfMeasure.fs" />
 	<Compile Include="AlgebraicTypes.fs" />
 	<None Include="Data\Abs-Return-Daily-Returns.csv" />
+	<None Include="scripts\FsToolKit.fsx" />
 	<None Include="scripts\TypeProvider.fsx" />
 	<None Include="Scripts\Interactive.fsx" />
 	<None Include="Scripts\HelloWorld.fsx" />
