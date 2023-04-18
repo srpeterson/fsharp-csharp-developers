@@ -229,8 +229,6 @@ module CreateValidAbsoluteReturnBenchmarkDto =
 //    // unwrap directly
 //    let value e = apply id e
 
-
-
 module Example =
 
     type UnValidatedName = UnValidatedName of string
