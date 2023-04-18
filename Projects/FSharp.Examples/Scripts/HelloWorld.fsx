@@ -138,6 +138,8 @@ module BenchmarkTypeId =
         let predicate (id: ValidBenchmarkTypeId) = id = ValidBenchmarkTypeId benchmarkTypeId
         (ValidBenchmarkTypeId typId) |> validate predicate $"Invalid TypeId"
 
+    let value (ValidBenchmarkTypeId s) = s
+
 type LagDay = { AsDateOnly: DateOnly;  DaysSinceEpoch: int } 
 type ValidLagDay = private ValidLagDay of LagDay
 
@@ -163,20 +165,46 @@ module LagDay =
 
     let value (ValidLagDay s) = s
 
-let foo = LagDay.create (new DateOnly(1900, 1, 31))
-
 module Example =
     open BenchmarkName
-
-    //type UnValidatedName = UnValidatedName of string option
-    //type ValidatedName = ValidatedName of string
+    open BenchmarkTypeId
+    open LagDay
 
     type UnValidatedDto = { Name: string option; TypeId: byte; LagDate: DateOnly option }
     type ValidatedDto = { Name: ValidBenchmarkName; TypeId: ValidBenchmarkTypeId; LagDate: ValidLagDay option  }
 
-    let unValidatedDto: UnValidatedDto = { Name = (Some"Steve"); TypeId = 3uy; LagDate = Some (new DateOnly(2022, 12,31)) }
+    let unValidatedDto: UnValidatedDto = { Name = (Some "Steve"); TypeId = 3uy; LagDate = Some (new DateOnly(2022, 12,31)) }
+
+    //let fred = BenchmarkName.create unValidatedDto.Name
+
+    //let ggg = 
+    //    let foo = 
+    //        match fred with
+    //        | Ok s ->  BenchmarkName.value s
+    //        | Error err -> err
+    //    5
+
+    //let fred2 = BenchmarkTypeId.create BenchmarkType.AbsoluteReturnBenchmark unValidatedDto.TypeId
+
+    //let ggg3 = 
+    //    let foo = 
+    //        match fred2 with
+    //        | Ok s ->  BenchmarkTypeId.value s
+    //        | Error err -> err
+    //    5
+
+    //let fred3 = 
+    //    match unValidatedDto.LagDate with 
+    //    | Some s -> Some (LagDay.create s)
+    //    | None -> None
+
+    //let foo = fred |> Result.bind fred2
+
+    //3
+
+    //here I want to go from UnvalidatedDto to ValidatedDto
     
-    let foo = BenchmarkName.create unValidatedDto.Name
+    //type transform = UnValidatedDto -> ValidatedDto
 
     //type UnValidatedName = UnValidatedName of string
     //type ValidatedName = ValidatedName of string
