@@ -31,7 +31,7 @@ let multipleOfFive number =
     else Error (sprintf "Invalid: %d is not a multiple of 5" number)
 
 // ROP "chaining" if one rule fails, then the rest of the chain
-// is bypassed
+// is by passed
 let validationResult number = 
     Ok number
     |> Result.bind multipleOfThree //if passes, then will evaluate 'multipleOfFive'
