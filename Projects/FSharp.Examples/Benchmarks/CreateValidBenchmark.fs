@@ -15,7 +15,7 @@ module DomainTypes =
 
     type ValidBenchmarkName =  ValidBenchmarkName of string
     type ValidBenchmarkTypeId = ValidBenchmarkTypeId of byte
-    type LagDay = { AsDateOnly: DateOnly; (* A bunch of other properties ..*) DaysSinceEpoch: int } 
+    type LagDay = { Quarter: int; DaysSinceEpoch: int; AsDateTime: DateTime; (* A bunch of other properties ..*) } 
     type ValidLagDay = ValidLagDay of LagDay
 
     // Pretend that this is the Dto passed to us from the API endpoint. We have no clue as to what user gave us and what is required
@@ -96,13 +96,15 @@ module LagDay =
         let predicate (value: DateOnly)  =  DateTime.DaysInMonth(value.Year, value.Month) = value.Day;
         lagDate |> validate predicate "Lag Date must be end of month"
     
-    let create (lagDate: DateOnly option) =
+    let create (date: DateOnly option) =
         validation {
-            let! _ = lagDate |> Option.traverseResult ``date is before january 1 1900``
-            and! _ = lagDate |> Option.traverseResult isEndOfMonth
-            let value = (lagDate |> Option.get)
-            let daysSinceEpoch = value |> daysSinceEpoch 
-            return  Some (ValidLagDay { AsDateOnly = value; DaysSinceEpoch = daysSinceEpoch})
+            let! _ = date |> Option.traverseResult ``date is before january 1 1900``
+            and! _ = date |> Option.traverseResult isEndOfMonth
+            let lagDate = (date |> Option.get)
+            let quarter = (lagDate.Month - 1) / 3 + 1;
+            let daysSinceEpoch = lagDate |> daysSinceEpoch
+            let dateTime = new DateTime(lagDate.Year, lagDate.Month, lagDate.Day)
+            return  Some (ValidLagDay { Quarter = quarter; DaysSinceEpoch = daysSinceEpoch;  AsDateTime = dateTime})
         }
 
     // "Unwraps" value if needed
