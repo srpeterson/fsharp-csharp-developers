@@ -34,18 +34,24 @@ module BenchmarkName =
 
     let private nameIsNone (name: string option) = 
         let predicate (value: string option) = value.IsSome
-        name |> validateOption predicate "Name is none"
+        name |> validateOption predicate "Benchmark name can't be None"
+
+    let private nameIsEmpty (name: string) = 
+        let predicate (s: string) = not (String.IsNullOrWhiteSpace(s))
+        name |> validate predicate $"Benchmark name can not be empty"
 
     let private nameIsTooLong (name: string) = 
         let predicate (s: string) = s.Length < MaxNameLength
         name |> validate predicate $"Name exceeds max character length of '{MaxNameLength}'"
 
     let create (name: string option) =
-         result {
+         validation {
             let! _ = name |> nameIsNone
+            let! _ = name |> Option.traverseResult  nameIsEmpty
             let! _ = name |> Option.traverseResult  nameIsTooLong
             return  ValidBenchmarkName (name |> Option.get)
         }
+
     // "Unwraps" value if needed
     let value (ValidBenchmarkName s) = s
 
@@ -72,6 +78,10 @@ module BenchmarkTypeId =
 module LagDay =
     open BenchmarkValidation
 
+    let daysSinceEpoch (date: DateOnly) = 
+        let baseDateDayNumber =(new DateOnly(1900, 1, 1)).DayNumber
+        date.DayNumber - baseDateDayNumber
+
     let private ``date is before january 1 1900`` (lagDate: DateOnly) = 
         let predicate (value: DateOnly) = value >= new DateOnly (1900, 1, 1)
         lagDate |> validate predicate "Date can not be before Jaunary 1, 1900"
@@ -81,22 +91,24 @@ module LagDay =
         lagDate |> validate predicate "Lag Date must be end of month"
     
     let create (lagDate: DateOnly option) =
-        result {
+        validation {
             let! _ = lagDate |> Option.traverseResult ``date is before january 1 1900``
-            let! _ = lagDate |> Option.traverseResult isEndOfMonth
-            return  Some (ValidLagDay { AsDateOnly = (lagDate |> Option.get); DaysSinceEpoch = 5})
+            and! _ = lagDate |> Option.traverseResult isEndOfMonth
+            let value = (lagDate |> Option.get)
+            let daysSinceEpoch = value |> daysSinceEpoch 
+            return  Some (ValidLagDay { AsDateOnly = value; DaysSinceEpoch = daysSinceEpoch})
         }
-    
+
     // "Unwraps" value if needed
     let value (ValidLagDay s) = s
 
 module CreateValidatedABsoluteReturnDto =
 
     // Pretend that this is the Dto passed to us from enpoint
-    type UnValidatedDto = { Name: string option; TypeId: byte; (* A bunch of other properties ..*) LagDate: DateOnly option }
+    type UnValidatedDto = { Name: string option; TypeId: byte; IsLagged: bool; LagDate: DateOnly option (* A bunch of other properties ..*) }
 
     // This is the Dto that has all the properties validated and will use for rest of code
-    type ValidatedDto = { Name: ValidBenchmarkName; TypeId: ValidBenchmarkTypeId; LagDate: ValidLagDay option }
+    type ValidatedDto = { Name: ValidBenchmarkName; TypeId: ValidBenchmarkTypeId; IsLagged: bool; LagDate: ValidLagDay option }
 
     // This validates the properties and returns a a ValidatedDto or a list of errors 
     let toValidatedDto (unValidatedDto: UnValidatedDto) = 
@@ -106,8 +118,5 @@ module CreateValidatedABsoluteReturnDto =
             and! validHeight = BenchmarkTypeId.create BenchmarkType.AbsoluteReturnBenchmark unValidatedDto.TypeId
             and! validDob = LagDay.create unValidatedDto.LagDate
 
-            return { Name = validName; TypeId = validHeight; LagDate = validDob }
+            return { Name = validName; TypeId = validHeight; IsLagged = unValidatedDto.IsLagged; LagDate = validDob }
         }
-
-    
-    //let testIt = toValidatedDto { Name = (Some "Steve"); TypeId = 1uy; LagDate = Some (new DateOnly(2022, 12, 31)) }
