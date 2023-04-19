@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<Compile Include="Benchmarks\CreateBenchmarkExample.fs" />
+	<Compile Include="Benchmarks\CreateValidBenchmark.fs" />
 	<Compile Include="Benchmarks\TranslationExample.fs" />
 	<Compile Include="Interactive.fs" />
 	<Compile Include="HelloWorld.fs" />
@@ -16,6 +16,7 @@
 	<Compile Include="UnitsOfMeasure.fs" />
 	<Compile Include="AlgebraicTypes.fs" />
 	<None Include="Data\Abs-Return-Daily-Returns.csv" />
+	<None Include="scripts\Benchmark.fsx" />
 	<None Include="scripts\TypeProvider.fsx" />
 	<None Include="Scripts\Interactive.fsx" />
 	<None Include="Scripts\HelloWorld.fsx" />
