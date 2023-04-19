@@ -18,6 +18,12 @@ module DomainTypes =
     type LagDay = { AsDateOnly: DateOnly; (* A bunch of other properties ..*) DaysSinceEpoch: int } 
     type ValidLagDay = ValidLagDay of LagDay
 
+    // Pretend that this is the Dto passed to us from the API endpoint. We have no clue as to what user gave us and what is required
+    type UnValidatedBenchmarkDto = { Name: string option; TypeId: byte; IsLagged: bool; LagDate: DateOnly option (* A bunch of other properties ..*) }
+
+    // This is the Dto that has all the properties validated and will use for rest of code
+    type ValidatedBenchmarkDto = { Name: ValidBenchmarkName; TypeId: ValidBenchmarkTypeId; IsLagged: bool; LagDate: ValidLagDay option }
+
 module BenchmarkValidation = 
 
     let validate validator failure input =
@@ -102,17 +108,10 @@ module LagDay =
     // "Unwraps" value if needed
     let value (ValidLagDay s) = s
 
-module CreateValidatedABsoluteReturnDto =
-
-    // Pretend that this is the Dto passed to us from enpoint
-    type UnValidatedDto = { Name: string option; TypeId: byte; IsLagged: bool; LagDate: DateOnly option (* A bunch of other properties ..*) }
-
-    // This is the Dto that has all the properties validated and will use for rest of code
-    type ValidatedDto = { Name: ValidBenchmarkName; TypeId: ValidBenchmarkTypeId; IsLagged: bool; LagDate: ValidLagDay option }
-
+module CreateValidatedAbsoluteReturnDto =
+    
     // This validates the properties and returns a a ValidatedDto or a list of errors 
-    let toValidatedDto (unValidatedDto: UnValidatedDto) = 
-
+    let toValidDto (unValidatedDto: UnValidatedBenchmarkDto) = 
         validation {
             let! validName = BenchmarkName.create unValidatedDto.Name
             and! validHeight = BenchmarkTypeId.create BenchmarkType.AbsoluteReturnBenchmark unValidatedDto.TypeId
