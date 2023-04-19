@@ -7,6 +7,7 @@
   <ItemGroup>
 	<Compile Include="Benchmarks\CreateValidBenchmark.fs" />
 	<Compile Include="Benchmarks\TranslationExample.fs" />
+	<Compile Include="Person.fs" />
 	<Compile Include="Interactive.fs" />
 	<Compile Include="HelloWorld.fs" />
 	<Compile Include="DataStructures.fs" />

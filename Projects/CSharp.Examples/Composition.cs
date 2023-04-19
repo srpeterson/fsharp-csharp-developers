@@ -20,7 +20,7 @@ public class Composition
     }
 
     // Better - a C# way of doing F# piping..
-    public static int SubtractOneSquareAddTen3(int input)
+    public static int SubtractOneSquareAddTen(int input)
     {
         return input
             .SubtractOne()
