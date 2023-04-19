@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<Compile Include="Benchmarks\Requests.fs" />
-	<Compile Include="Benchmarks\Domain.fs" />
+	<Compile Include="Benchmarks\CreateBenchmarkExample.fs" />
+	<Compile Include="Benchmarks\TranslationExample.fs" />
 	<Compile Include="Interactive.fs" />
 	<Compile Include="HelloWorld.fs" />
 	<Compile Include="DataStructures.fs" />
