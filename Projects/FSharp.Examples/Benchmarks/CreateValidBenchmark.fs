@@ -129,6 +129,5 @@ module CreateValidatedAbsoluteReturnDto =
             let! validName = BenchmarkName.create unValidatedDto.Name
             and! validType = BenchmarkTypeId.create BenchmarkType.AbsoluteReturnBenchmark unValidatedDto.TypeId
             and! validLagDay = LagDay.create unValidatedDto.LagDate
-
             return { Name = validName; TypeId = validType; IsLagged = unValidatedDto.IsLagged; LagDate = validLagDay }
         }
