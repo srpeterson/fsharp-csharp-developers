@@ -7,9 +7,9 @@
   <ItemGroup>
 	<Compile Include="Benchmarks\CreateValidBenchmark.fs" />
 	<Compile Include="Benchmarks\TranslationExample.fs" />
+	<Compile Include="HelloWorld.fs" />
 	<Compile Include="Person.fs" />
 	<Compile Include="Interactive.fs" />
-	<Compile Include="HelloWorld.fs" />
 	<Compile Include="DataStructures.fs" />
 	<Compile Include="Composition.fs" />
 	<Compile Include="OptionType.fs" />
@@ -17,16 +17,16 @@
 	<Compile Include="UnitsOfMeasure.fs" />
 	<Compile Include="AlgebraicTypes.fs" />
 	<None Include="Data\Abs-Return-Daily-Returns.csv" />
-	<None Include="scripts\Benchmark.fsx" />
-	<None Include="scripts\TypeProvider.fsx" />
-	<None Include="Scripts\Interactive.fsx" />
 	<None Include="Scripts\HelloWorld.fsx" />
+	<None Include="Scripts\Interactive.fsx" />
+	<None Include="scripts\TypeProvider.fsx" />
 	<None Include="Scripts\DataStructures.fsx" />
 	<None Include="Scripts\Composition.fsx" />
 	<None Include="Scripts\OptionType.fsx" />
 	<None Include="Scripts\ResultType.fsx" />
 	<None Include="Scripts\UnitsOfMeasure.fsx" />
 	<None Include="Scripts\AlgebraicTypes.fsx" />
+	<None Include="scripts\Benchmark.fsx" />
   </ItemGroup>
 
   <ItemGroup>
