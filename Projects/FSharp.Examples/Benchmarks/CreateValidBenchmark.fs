@@ -19,11 +19,11 @@ module DomainTypes =
     type ValidTypeId = { TypeId: byte }
     type ValidType = ValidType of ValidTypeId
 
-    type LagDay = { Quarter: int; DaysSinceEpoch: int; AsDateTime: DateTime; (* A bunch of other properties ..*) } 
+    type LagDay = { Quarter: int; DaysSinceEpoch: int; AsDateTime: DateTime; (* A bunch of other properties in real life ..*) } 
     type ValidLagDay = ValidLagDay of LagDay
 
     // Pretend that this is the Dto passed to us from the API endpoint. We have no clue as to what user gave us
-    type UnValidatedBenchmarkDto = { Name: string option; TypeId: byte; IsLagged: bool; LagDate: DateOnly option (* A bunch of other properties ..*) }
+    type UnValidatedBenchmarkDto = { Name: string option; TypeId: byte; IsLagged: bool; LagDate: DateOnly option (* A bunch of other properties in real life ..*) }
 
     // This is the Dto that has all the properties validated and will use for rest of code
     type ValidatedBenchmarkDto = { Name: ValidName; TypeId: ValidType; IsLagged: bool; LagDate: ValidLagDay option }
