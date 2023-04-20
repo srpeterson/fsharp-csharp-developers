@@ -1,15 +1,21 @@
 ﻿namespace Fsharp.Examples
 
-type Person(firstname, lastname, age) =
+// The CSharpy way
+type Person(firstname, lastname) =
 
     let mutable firstname: string = firstname
     let mutable lastname: string  = lastname
-    let mutable age: int  = age
 
     member _.FirstName with get() = firstname and set(value) = firstname <- value
     member _.LastName with get() = lastname and set(value) = lastname <- value
-    member _.Age with get() = age and set(value) = age <- value
 
-    member _.GetFullName() = sprintf "%s, %s" lastname firstname // F# now supports string interpolation so could have done: $"{firstname}, {lastname}"
+    member _.GetFullName() = $"{firstname}, {lastname}" 
+
+// F# "normal" way
+module Person =
+    
+    type Person = {FirstName: string; LastName: string}
+
+    let getFullName (person: Person) = sprintf "%s, %s" person.FirstName person.LastName // same as '$"{firstname}, {lastname}"' above but using built in function
 
 

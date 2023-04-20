@@ -6,8 +6,12 @@ public class Person
 
     public string LastName { get; set; }
 
-    public int Age { get; set; }
-    
+    public Person(string firstName, string lastName)
+    {
+        this.FirstName = firstName;
+        this.LastName = lastName;
+    }
+
     public string GetFullName()
     {
         string fullname = $"{this.LastName}, {this.FirstName}";
