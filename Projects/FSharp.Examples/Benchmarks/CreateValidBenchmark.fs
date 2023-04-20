@@ -13,16 +13,20 @@ module DomainTypes =
         | PullForwardBenchmark
         | StaticWeightedBenchmark
 
-    type ValidBenchmarkName =  ValidBenchmarkName of string
-    type ValidBenchmarkTypeId = ValidBenchmarkTypeId of byte
+    type BenchmarkName = { Name: string }
+    type ValidName =  ValidName of BenchmarkName
+
+    type ValidTypeId = { TypeId: byte }
+    type ValidType = ValidType of ValidTypeId
+
     type LagDay = { Quarter: int; DaysSinceEpoch: int; AsDateTime: DateTime; (* A bunch of other properties ..*) } 
     type ValidLagDay = ValidLagDay of LagDay
 
-    // Pretend that this is the Dto passed to us from the API endpoint. We have no clue as to what user gave us and what is required
+    // Pretend that this is the Dto passed to us from the API endpoint. We have no clue as to what user gave us
     type UnValidatedBenchmarkDto = { Name: string option; TypeId: byte; IsLagged: bool; LagDate: DateOnly option (* A bunch of other properties ..*) }
 
     // This is the Dto that has all the properties validated and will use for rest of code
-    type ValidatedBenchmarkDto = { Name: ValidBenchmarkName; TypeId: ValidBenchmarkTypeId; IsLagged: bool; LagDate: ValidLagDay option }
+    type ValidatedBenchmarkDto = { Name: ValidName; TypeId: ValidType; IsLagged: bool; LagDate: ValidLagDay option }
 
 module BenchmarkValidation = 
 
@@ -55,11 +59,12 @@ module BenchmarkName =
             let! _ = name |> nameIsNone
             let! _ = name |> Option.traverseResult  nameIsEmpty
             let! _ = name |> Option.traverseResult  nameIsTooLong
-            return  ValidBenchmarkName (name |> Option.get)
+            let name = name |> Option.get
+            return  ValidName {Name = name}
         }
 
     // "Unwraps" value if needed
-    let value (ValidBenchmarkName s) = s
+    let value (ValidName s) = s
 
 module BenchmarkTypeId =
     open BenchmarkValidation
@@ -73,13 +78,19 @@ module BenchmarkTypeId =
         | PullForwardBenchmark -> 5uy
         | StaticWeightedBenchmark -> 6uy
 
+    let private isValidTypeId (typeId: byte) = 
+        let predicate (id: byte) = id = typeId
+        typeId |> validate predicate $"Invalid Benchmark TypeId"
+
     let create (createBenchmarkDtoType: BenchmarkType) (typId: byte) = 
         let benchmarkTypeId = createBenchmarkDtoType |> getBenchmarkTypeId
-        let predicate (id: ValidBenchmarkTypeId) = id = ValidBenchmarkTypeId benchmarkTypeId
-        (ValidBenchmarkTypeId typId) |> validate predicate $"Invalid Benchmark TypeId"
+        validation {
+           let! _ = benchmarkTypeId |> isValidTypeId
+           return  ValidType { TypeId = typId }
+        }
     
     // "Unwraps" value if needed
-    let value (ValidBenchmarkTypeId s) = s
+    let value (ValidType s) = s
 
 module LagDay =
     open BenchmarkValidation
@@ -116,8 +127,8 @@ module CreateValidatedAbsoluteReturnDto =
     let toValidDto (unValidatedDto: UnValidatedBenchmarkDto) = 
         validation {
             let! validName = BenchmarkName.create unValidatedDto.Name
-            and! validHeight = BenchmarkTypeId.create BenchmarkType.AbsoluteReturnBenchmark unValidatedDto.TypeId
-            and! validDob = LagDay.create unValidatedDto.LagDate
+            and! validType = BenchmarkTypeId.create BenchmarkType.AbsoluteReturnBenchmark unValidatedDto.TypeId
+            and! validLagDay = LagDay.create unValidatedDto.LagDate
 
-            return { Name = validName; TypeId = validHeight; IsLagged = unValidatedDto.IsLagged; LagDate = validDob }
+            return { Name = validName; TypeId = validType; IsLagged = unValidatedDto.IsLagged; LagDate = validLagDay }
         }

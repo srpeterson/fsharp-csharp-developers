@@ -40,8 +40,6 @@ type DiskType = HDD | SSD
 type DiskSpace = GigaByte of int | TeraByte of int
 type Disk = DiskType * DiskSpace //the '*' means "AND". Can't do this in C#!!!
 
-//type ScreenSize = 
-
 // Define what a computer is
 type Computer = { Type: Type; Brand: Brand; Os: OS; Memory: RAM; Disk: Disk;}
 
