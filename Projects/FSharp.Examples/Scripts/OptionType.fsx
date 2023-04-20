@@ -5,6 +5,10 @@
 // Basically, this means that you might have Some of "something"
 // or "None" of that "something"
 
+let foo: string = null
+
+let bob = foo.Length
+
 //F# Option type - keyword 'option'
 let (name: string option) = Some "Bob" // = "Bob" by itself won't compile!
 //or
@@ -24,5 +28,7 @@ let someIntegers = [ Some 1; None; None; Some 4 ]
 
 let justSomeInts = someIntegers |> List.filter(Option.isSome) // [Some 1; Some 4]
 let justTheInts = someIntegers |> List.choose(id) // [1; 4] - only the values of the collection members that are "Some"
+
+// Use a record type {Name: string; Department: Department} // Department has 
 
 

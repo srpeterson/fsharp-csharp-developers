@@ -32,16 +32,28 @@ let multipleOfFive number =
 
 // ROP "chaining" if one rule fails, then the rest of the chain
 // is by passed
-let validationResult number = 
+let checkNumber number = 
     Ok number
     |> Result.bind multipleOfThree //if passes, then will evaluate 'multipleOfFive'
     |> Result.bind multipleOfFive //if passes, then will evaluate 'isEven'
     |> Result.bind isEven
 
 let validate number =
-    let result = validationResult number
+    let result = checkNumber number
     match result with
     | Ok i -> sprintf "%d is a valid number!" i
     | Error message -> message
 
-validate 30
+validate 31
+
+// What is SUPER cool is that we  can define our own Result type
+// This allows our code to be even more self documenting
+type BenchmarkCalculationResult<'T,'TError> =
+    | CalculationOk of 'T
+    | CalculationError of 'TError
+
+let isEven2 number = 
+    if number % 2 = 0 then CalculationOk number 
+    else CalculationError (sprintf "Invalid: %d is not an even number" number)
+
+isEven2 5
