@@ -30,7 +30,7 @@ module ``C# Composition Tests`` =
 
     [<Fact>]
     let ``SubtractOneSquareAddTen should return 91 when the input is 10`` () =
-        let actual = Composition.SubtractOneSquareAddTen(10)
+        let actual = Composition.SubtractOneSquareAddTen2(10)
         let expected = 91
         actual |>  should equal expected
 

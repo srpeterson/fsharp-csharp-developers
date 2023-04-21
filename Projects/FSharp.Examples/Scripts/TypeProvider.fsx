@@ -10,10 +10,10 @@ open FSharp.Data
 let ResolutionFolder = __SOURCE_DIRECTORY__
 
 // set provider
-type Csv = CsvProvider<"../Data/Abs-Return-Daily-Returns.csv", HasHeaders = true, ResolutionFolder = ResolutionFolder>
+type Provider = CsvProvider<"../Data/Abs-Return-Daily-Returns.csv", HasHeaders = true, ResolutionFolder = ResolutionFolder>
 
 // get rows
-let rows = Csv.GetSample().Rows |> Seq.toList 
+let rows = Provider.GetSample().Rows |> Seq.toList 
 
 // get first row
 let firstrow = rows |> Seq.toList |> List.head

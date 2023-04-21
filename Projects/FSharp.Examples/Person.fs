@@ -14,8 +14,8 @@ type Person(firstname, lastname) =
 // F# "normal" way
 module Person =
     
-    type Person = {FirstName: string; LastName: string}
+    type Person = { FirstName: string; LastName: string }
 
-    let getFullName (person: Person) = sprintf "%s, %s" person.FirstName person.LastName // same as '$"{firstname}, {lastname}"' above but using built in function
+    let getFullName person = $"{person.FirstName}, {person.LastName}"
 
 
