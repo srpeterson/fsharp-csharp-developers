@@ -1,6 +1,4 @@
 ﻿namespace FSharp.Examples.Tests
-
-open System
 open Xunit
 open FsUnit.Xunit
 
