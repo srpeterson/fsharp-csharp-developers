@@ -80,7 +80,7 @@ module BenchmarkTypeId =
 
     let private isValidTypeId (createBenchmarkDtoType: BenchmarkType) (typeId: byte) =
         let benchmarkTypeId = createBenchmarkDtoType |> getBenchmarkTypeId
-        let predicate (id: byte) = benchmarkTypeId = typeId
+        let predicate (id: byte) = benchmarkTypeId = id
         typeId |> validate predicate $"Invalid Benchmark TypeId"
 
     let create (createBenchmarkDtoType: BenchmarkType) (typeId: byte) = 
