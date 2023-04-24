@@ -5,25 +5,21 @@
 // Basically, this means that you might have Some of "something"
 // or "None" of that "something"
 
-let foo: string = null
-
-let bob = foo.Length
-
-//F# Option type - keyword 'option'
+// F# Option type - keyword 'option'
 let (name: string option) = Some "Bob" // = "Bob" by itself won't compile!
 //or
 let (name2: string option) = None
 
-//"unwrap" with match 
+// "unwrap" with match 
 let getName name = 
     match name with 
     | Some s -> s
     | None -> "No name assigned!"
 
-//or "unwrap" by using  F#'s built in Option module
+// or "unwrap" by using  F#'s built in Option module
 let getName' name = name |> Option.defaultValue "No name assigned!"
 
-//optional lists
+// optional lists
 let someIntegers = [ Some 1; None; None; Some 4 ]
 
 let justSomeInts = someIntegers |> List.filter(Option.isSome) // [Some 1; Some 4]

@@ -24,7 +24,7 @@ type Brand = Acer | Lenovo | Hp | Dell
 // What kind of operating systems come on those?"
 // Answer: Well, you can get Win 10 Home or Win 10 Professional
 
-type OS = WIn10 | Win11
+type OS = Win10 | Win11
 
 // What kind of memory comes on the computers?
 // Answer: You can get 16, 32 or 34 GB of Ram
@@ -44,26 +44,26 @@ type Disk = DiskType * DiskSpace //the '*' means "AND". Can't do this in C#!!!
 type Computer = { Type: Type; Brand: Brand; Os: OS; Memory: RAM; Disk: Disk;}
 
 // Define what the stock is
-type CurrentStock = InStock of Computer list | OnlyOneLeft of Computer | OutofStock of string //blurb
+type CurrentStock = InStock of Computer list | OnlyOneLeft of Computer | OutofStock of string
 
 // Here is a higher order function. 'predicate' is a function (Computer -> bool) 
-let getStock predicate inventory = 
-    let currentStock = inventory |> List.filter(predicate) |> Some
+let getStock predicate inventory : CurrentStock = 
+    let currentStock = inventory |> List.filter (predicate)
     match currentStock with
-    | None -> OutofStock "The computers you searched for are out of stock!"
-    | Some [computer] -> OnlyOneLeft computer
-    | Some computers -> InStock computers
+    | currentStock when currentStock.IsEmpty -> OutofStock "The computers you searched for are out of stock"
+    | [computer] -> OnlyOneLeft computer
+    | _ -> InStock currentStock
 
 //have some fun!
 let inventory = 
     [
-        {  Type = Desktop; Brand = Acer;   Os = WIn10;  Memory = Gb16;  Disk = (HDD, GigaByte 750); }
+        {  Type = Desktop; Brand = Acer;   Os = Win10;  Memory = Gb16;  Disk = (HDD, GigaByte 750); }
         {  Type = Laptop;  Brand = Acer;   Os = Win11;  Memory = Gb32;  Disk = (SSD, GigaByte 500);}
         {  Type = Laptop;  Brand = Acer;   Os = Win11;  Memory = Gb32;  Disk = (HDD, TeraByte 1);  }
         {  Type = Laptop;  Brand = Lenovo; Os = Win11;  Memory = Gb16;  Disk = (SSD, GigaByte 750);}
-        {  Type = Laptop;  Brand = Lenovo; Os = WIn10;  Memory = Gb32;  Disk = (SSD, TeraByte 1);  }
+        {  Type = Laptop;  Brand = Lenovo; Os = Win10;  Memory = Gb32;  Disk = (SSD, TeraByte 1);  }
         {  Type = Desktop; Brand = Hp;     Os = Win11;  Memory = Gb64;  Disk = (HDD, TeraByte 1);   }
-        {  Type = Laptop;  Brand = Hp;     Os = WIn10;  Memory = Gb16;  Disk = (SSD, GigaByte 500);}
+        {  Type = Laptop;  Brand = Hp;     Os = Win10;  Memory = Gb16;  Disk = (SSD, GigaByte 500);}
         {  Type = Laptop;  Brand = Hp;     Os = Win11;  Memory = Gb32;  Disk = (SSD, GigaByte 750);}
         {  Type = Desktop; Brand = Dell;   Os = Win11;  Memory = Gb32;  Disk = (HDD, TeraByte 1);   }
     ]
@@ -73,6 +73,6 @@ let desktops = fun a -> a.Type = Desktop
 let dellLaptops = fun a -> a.Brand = Dell && a.Type = Laptop
 let teraByteSsds = fun { Disk= (ssd, gb) } -> ssd = SSD && gb = TeraByte 1
 
-let desktopsInStock = inventory |> getStock desktops
-let dellLaptopsInStock = inventory |> getStock dellLaptops
-let ssdsInStock = inventory |> getStock teraByteSsds
+let dellLaptopsInStock = inventory |> getStock dellLaptops // OutofStock
+let ssdsInStock = inventory |> getStock teraByteSsds //One left
+let desktopsInStock = inventory |> getStock desktops // InStock
